@@ -52,7 +52,7 @@ http://www.d3noob.org/2013/01/adding-tooltips-to-d3js-graph.html
 Mike Bostock, Pie Chart Legend
 http://bl.ocks.org/mbostock/3888852  */
 
-		
+var mainURL = 'https://raw.githubusercontent.com/glp-volunteers/pb-dashboard/master/
 //Width and height of map
 var width = 960;
 var height = 500;
@@ -90,11 +90,11 @@ var radius = d3.scale.sqrt()
     .range([0, 15]);
 
 // Load in states data
-d3.csv("data/uscounties_pb_counts.csv", function(data) {
+d3.csv(mainURL+"data/uscounties_pb_counts.csv", function(data) {
 color.domain([0,14126]); // setting the range of the input data
 
 // Load GeoJSON data and merge with states data
-d3.json("data/us-states.json", function(json) {
+d3.json(mainURL+"data/us-states.json", function(json) {
 
 // Loop through each state data value in the .csv file
 for (var i = 0; i < data.length; i++) {
@@ -143,7 +143,7 @@ svg.selectAll("path")
 });
 
 		 
-d3.csv("data/cities_cases.csv", function(data) {
+d3.csv(mainURL+"data/cities_cases.csv", function(data) {
 
 svg.selectAll("circle")
 	.data(data)
