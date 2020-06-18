@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react";
 import { Button } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { Col } from "react-bootstrap";
@@ -6,6 +7,8 @@ import { Row } from "react-bootstrap";
 import BrutalityByState from "components/widgets/BrutalityByState";
 import BrutalityOverTime from "components/widgets/BrutalityOverTime";
 import BubbleHeatmap from "components/widgets/BubbleHeatmap";
+import GoogleChart from "components/widgets/GoogleChart";
+
 
 function HomePage() {
   return (
@@ -49,8 +52,15 @@ function HomePage() {
         </Row>
       </Container>
 
+
+
+<Container>
+<GoogleChart /> 
+  </Container>
+
       <Container>
         <Row>
+  
           <Col>
             <BrutalityOverTime />
           </Col>
@@ -69,11 +79,7 @@ function HomePage() {
             <BrutalityOverTime />
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <BubbleHeatmap />
-          </Col>
-        </Row>
+        
       </Container>
     </div>
   );
