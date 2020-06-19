@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import ReactDOM from "react";
+import materialUI from "@material-ui/core";
 import { Button } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { Col } from "react-bootstrap";
@@ -8,8 +9,7 @@ import BrutalityByState from "components/widgets/BrutalityByState";
 import BrutalityOverTime from "components/widgets/BrutalityOverTime";
 import BubbleHeatmap from "components/widgets/BubbleHeatmap";
 import GoogleChart from "components/widgets/GoogleChart";
-import iFrame from "components/widgets/iFrame";
-
+import EnhancedTable from "components/widgets/TableData";
 
 function HomePage() {
   return (
@@ -61,6 +61,10 @@ function HomePage() {
 
 <Container style={{backgroundColor: "#c5c6c8"}}>
 <GoogleChart /> 
+  </Container>
+  <Container>
+  <EnhancedTable/>
+
   </Container>
 
       <Container style={{borderColor: "#c5c6c8"}}>

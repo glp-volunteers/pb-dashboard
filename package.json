@@ -10,6 +10,7 @@
 		"stop-dev-db": "./mysql/stop.sh"
 	},
 	"dependencies": {
+		"@material-ui/core": "^4.10.2",
 		"bootstrap": "^4.5.0",
 		"d3-fetch": "^1.2.0",
 		"google-charts": "^2.0.0",
