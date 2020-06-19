@@ -1,24 +1,28 @@
-import React, {PureComponent} from "react";
-import ReactDOM from "react";
-import materialUI from "@material-ui/core";
+import React from "react";
 import { Button } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import BrutalityByState from "components/widgets/BrutalityByState";
 import BrutalityOverTime from "components/widgets/BrutalityOverTime";
-import BubbleHeatmap from "components/widgets/BubbleHeatmap";
-import GoogleChart from "components/widgets/GoogleChart";
+import BrutalityMap from "components/widgets/BrutalityMap";
 import EnhancedTable from "components/widgets/TableData";
 
-function HomePage() {
+import { getApiData } from "api/routes/appRoutes";
+
+export const getServerSideProps = async ({ req }) => {
+  const mapData = await getApiData("count/shootings/state/name");
+  console.log("mapData", mapData);
+  return {
+    props: {
+      mapData,
+    },
+  };
+};
+
+function HomePage({ mapData }) {
   return (
     <div>
-
-
-      
-
-
       <Container
         style={{ width: "1200px", backgroundColor: "#0B0C10", padding: "1em" }}
       >
@@ -58,18 +62,15 @@ function HomePage() {
         </Row>
       </Container>
 
+      <Container style={{ backgroundColor: "#c5c6c8" }}>
+        <BrutalityMap data={mapData} />
+      </Container>
+      <Container>
+        <EnhancedTable data={mapData} />
+      </Container>
 
-<Container style={{backgroundColor: "#c5c6c8"}}>
-<GoogleChart /> 
-  </Container>
-  <Container>
-  <EnhancedTable/>
-
-  </Container>
-
-      <Container style={{borderColor: "#c5c6c8"}}>
+      <Container style={{ borderColor: "#c5c6c8" }}>
         <Row>
-  
           <Col>
             <BrutalityOverTime />
           </Col>
@@ -77,8 +78,6 @@ function HomePage() {
             <BrutalityByState />
           </Col>
         </Row>
-       
-        
       </Container>
     </div>
   );
