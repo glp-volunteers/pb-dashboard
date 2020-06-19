@@ -1,4 +1,4 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import ReactDOM from "react";
 import { Button } from "react-bootstrap";
 import { Container } from "react-bootstrap";
@@ -8,13 +8,19 @@ import BrutalityByState from "components/widgets/BrutalityByState";
 import BrutalityOverTime from "components/widgets/BrutalityOverTime";
 import BubbleHeatmap from "components/widgets/BubbleHeatmap";
 import GoogleChart from "components/widgets/GoogleChart";
+import iFrame from "components/widgets/iFrame";
 
 
 function HomePage() {
   return (
     <div>
+
+
+      
+
+
       <Container
-        style={{ width: "1200px", backgroundColor: "#000", padding: "1em" }}
+        style={{ width: "1200px", backgroundColor: "#0B0C10", padding: "1em" }}
       >
         <Row>
           <Col sm={1}>
@@ -36,7 +42,7 @@ function HomePage() {
                 color: "#66fcf1",
               }}
             >
-              Police Brutality Dashboard
+              Police Killings Dashboard
             </h2>
           </Col>
           <Col sm={2}>
@@ -53,12 +59,11 @@ function HomePage() {
       </Container>
 
 
-
-<Container>
+<Container style={{backgroundColor: "#c5c6c8"}}>
 <GoogleChart /> 
   </Container>
 
-      <Container>
+      <Container style={{borderColor: "#c5c6c8"}}>
         <Row>
   
           <Col>
@@ -68,17 +73,7 @@ function HomePage() {
             <BrutalityByState />
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <BrutalityOverTime />
-          </Col>
-          <Col>
-            <BrutalityOverTime />
-          </Col>
-          <Col>
-            <BrutalityOverTime />
-          </Col>
-        </Row>
+       
         
       </Container>
     </div>
