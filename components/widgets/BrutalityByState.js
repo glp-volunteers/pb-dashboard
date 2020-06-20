@@ -1,5 +1,5 @@
 import React from "react";
-import { VictoryChart, VictoryBar, VictoryTheme } from "victory";
+import { VictoryChart, VictoryBar, VictoryTheme, VictoryZoomContainer } from "victory";
 
 import { COLORS } from "styles/constants";
 
@@ -70,12 +70,15 @@ function transformData(data) {
 function BrutalityByState() {
   return (
     <div style={{ width: 500 }}>
-      <h2>Police Brutality By State</h2>
+      <h2>Police Killings By State</h2>
       <VictoryChart
         height={800}
         theme={VictoryTheme.material}
-        domainPadding={{ x: 10 }}
+        domainPadding={{ x: 0 }}
+        containerComponent={<VictoryZoomContainer zoomDomain={{x: [1, 51]}}/>}
+
       >
+
         <VictoryBar
           barRatio={0.8}
           style={{

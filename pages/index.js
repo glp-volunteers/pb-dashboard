@@ -1,4 +1,6 @@
-import React from "react";
+import React, {PureComponent} from "react";
+import ReactDOM from "react";
+import materialUI from "@material-ui/core";
 import { Button } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { Col } from "react-bootstrap";
@@ -6,12 +8,19 @@ import { Row } from "react-bootstrap";
 import BrutalityByState from "components/widgets/BrutalityByState";
 import BrutalityOverTime from "components/widgets/BrutalityOverTime";
 import BubbleHeatmap from "components/widgets/BubbleHeatmap";
+import GoogleChart from "components/widgets/GoogleChart";
+import EnhancedTable from "components/widgets/TableData";
 
 function HomePage() {
   return (
     <div>
+
+
+      
+
+
       <Container
-        style={{ width: "1200px", backgroundColor: "#000", padding: "1em" }}
+        style={{ width: "1200px", backgroundColor: "#0B0C10", padding: "1em" }}
       >
         <Row>
           <Col sm={1}>
@@ -33,7 +42,7 @@ function HomePage() {
                 color: "#66fcf1",
               }}
             >
-              Police Brutality Dashboard
+              Police Killings Dashboard
             </h2>
           </Col>
           <Col sm={2}>
@@ -49,8 +58,18 @@ function HomePage() {
         </Row>
       </Container>
 
-      <Container>
+
+<Container style={{backgroundColor: "#c5c6c8"}}>
+<GoogleChart /> 
+  </Container>
+  <Container>
+  <EnhancedTable/>
+
+  </Container>
+
+      <Container style={{borderColor: "#c5c6c8"}}>
         <Row>
+  
           <Col>
             <BrutalityOverTime />
           </Col>
@@ -58,22 +77,8 @@ function HomePage() {
             <BrutalityByState />
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <BrutalityOverTime />
-          </Col>
-          <Col>
-            <BrutalityOverTime />
-          </Col>
-          <Col>
-            <BrutalityOverTime />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <BubbleHeatmap />
-          </Col>
-        </Row>
+       
+        
       </Container>
     </div>
   );

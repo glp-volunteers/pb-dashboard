@@ -109,7 +109,7 @@ function BrutalityOverTime() {
 
   return (
     <div style={{ width: 500 }}>
-      <h2>Police Brutality Over Time</h2>
+      <h2>Police Killings Over Time</h2>
       <VictoryChart
         width={600}
         height={470}
