@@ -62,7 +62,7 @@ function HomePage() {
   <Row>
       <Col sm={7} >
       <GoogleChart />
-      <BrutalityByState />
+      <BrutalityOverTime />
 
       </Col>
 
@@ -85,7 +85,8 @@ function HomePage() {
         <Row>
   
           <Col>
-            <BrutalityOverTime />
+          <BrutalityByState />
+
           </Col>
           
         </Row>
