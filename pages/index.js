@@ -10,7 +10,7 @@ import BrutalityOverTime from "components/widgets/BrutalityOverTime";
 import BubbleHeatmap from "components/widgets/BubbleHeatmap";
 import GoogleChart from "components/widgets/GoogleChart";
 import EnhancedTable from "components/widgets/TableData";
-
+import Last20Victims from "components/widgets/Last20Victims";
 function HomePage() {
   return (
     <div>
@@ -58,10 +58,21 @@ function HomePage() {
         </Row>
       </Container>
 
+<Container>
+  <Row>
+      <Col sm={6} >
+      <GoogleChart />
+      </Col>
 
-<Container style={{backgroundColor: "#c5c6c8"}}>
-<GoogleChart /> 
-  </Container>
+      <Col sm={6}>
+      <Last20Victims /> 
+      </Col>
+  </Row>
+
+</Container>
+
+
+
   <Container>
   <EnhancedTable/>
 
