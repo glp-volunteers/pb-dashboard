@@ -60,11 +60,14 @@ function HomePage() {
 
 <Container>
   <Row>
-      <Col sm={6} >
+      <Col sm={7} >
       <GoogleChart />
+      <BrutalityByState />
+
       </Col>
 
-      <Col sm={6}>
+      <Col sm={5}>
+        <h3>Last 20 Reported Police Killings</h3>
       <Last20Victims /> 
       </Col>
   </Row>
@@ -84,9 +87,7 @@ function HomePage() {
           <Col>
             <BrutalityOverTime />
           </Col>
-          <Col md="auto">
-            <BrutalityByState />
-          </Col>
+          
         </Row>
        
         

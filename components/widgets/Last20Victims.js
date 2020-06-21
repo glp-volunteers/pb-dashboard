@@ -36,11 +36,14 @@ class Last20Victims extends React.Component {
 
             return(
                 <div className= "Last20Victims">
-                <ul>
+                <ul >
 
                     {items.map(item => (
                         <li key={item.id}>
-                         {item.victim_name} Murdered in {item.County} {item.state}
+                            
+
+                        <b> <a target="_blank" href= {item.media_link}> {item.victim_name}</a>
+                            </b> murdered in {item.state} State. Reported on {item.date}
                         </li>
                     ))};
                     
