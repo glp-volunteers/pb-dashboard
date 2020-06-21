@@ -14,9 +14,8 @@ Count.countAllRecords = async function (result) {
     function (err, res) {
       if (err) {
         console.log("error: ", err);
-        result(null, err);
+        result(err, null);
       } else {
-        console.log("counts : ", res);
         result(null, res);
       }
     }
@@ -25,12 +24,12 @@ Count.countAllRecords = async function (result) {
 
 Count.countAllShootings = async function (result) {
   const sql = await getDb();
-  sql.query("Select count(*) as total from shootings", function (err, res) {
+  sql.query("Select count(*) as total from shootings",
+  function (err, res) {
     if (err) {
       console.log("error: ", err);
-      result(null, err);
+      result(err, null);
     } else {
-      console.log("counts : ", res);
       result(null, res);
     }
   });
@@ -38,12 +37,12 @@ Count.countAllShootings = async function (result) {
 
 Count.countAllBrutality = async function (result) {
   const sql = await getDb();
-  sql.query("Select count(*) as total from brutality", function (err, res) {
+  sql.query("Select count(*) as total from brutality",
+  function (err, res) {
     if (err) {
       console.log("error: ", err);
-      result(null, err);
+      result(err, null);
     } else {
-      console.log("counts : ", res);
       result(null, res);
     }
   });
@@ -56,9 +55,8 @@ Count.countAllRecordsByState = async function (result) {
     function (err, res) {
       if (err) {
         console.log("error: ", err);
-        result(null, err);
+        result(err, null);
       } else {
-        console.log("counts : ", res);
         result(null, res);
       }
     }
@@ -72,9 +70,8 @@ Count.countAllShootingsByState = async function (result) {
     function (err, res) {
       if (err) {
         console.log("error: ", err);
-        result(null, err);
+        result(err, null);
       } else {
-        console.log("counts : ", res);
         result(null, res);
       }
     }
@@ -88,9 +85,8 @@ Count.countAllBrutalityByState = async function (result) {
     function (err, res) {
       if (err) {
         console.log("error: ", err);
-        result(null, err);
+        result(err, null);
       } else {
-        console.log("counts : ", res);
         result(null, res);
       }
     }
@@ -104,9 +100,8 @@ Count.countAllRecordsByStateAbbv = async function (result) {
     function (err, res) {
       if (err) {
         console.log("error: ", err);
-        result(null, err);
+        result(err, null);
       } else {
-        console.log("counts : ", res);
         result(null, res);
       }
     }
@@ -120,9 +115,8 @@ Count.countAllShootingsByStateAbbv = async function (result) {
     function (err, res) {
       if (err) {
         console.log("error: ", err);
-        result(null, err);
+        result(err, null);
       } else {
-        console.log("counts : ", res);
         result(null, res);
       }
     }
@@ -136,9 +130,8 @@ Count.countAllBrutalityByStateAbbv = async function (result) {
     function (err, res) {
       if (err) {
         console.log("error: ", err);
-        result(null, err);
+        result(err, null);
       } else {
-        console.log("counts : ", res);
         result(null, res);
       }
     }
@@ -152,9 +145,8 @@ Count.countAllRecordsByStateCounty = async function (result) {
     function (err, res) {
       if (err) {
         console.log("error: ", err);
-        result(null, err);
+        result(err, null);
       } else {
-        console.log("counts : ", res);
         result(null, res);
       }
     }
@@ -168,9 +160,8 @@ Count.countAllShootingsByStateCounty = async function (result) {
     function (err, res) {
       if (err) {
         console.log("error: ", err);
-        result(null, err);
+        result(err, null);
       } else {
-        console.log("counts : ", res);
         result(null, res);
       }
     }
@@ -184,9 +175,8 @@ Count.countAllBrutalityByStateCounty = async function (result) {
     function (err, res) {
       if (err) {
         console.log("error: ", err);
-        result(null, err);
+        result(err, null);
       } else {
-        console.log("counts : ", res);
         result(null, res);
       }
     }

@@ -40,7 +40,12 @@ const routes = {
   },
   "/shootings": {
     GET: controller.list_all_shootings,
-    // POST: controller.create_a_shooting
+  },
+  "/shootings/state": {
+    GET: controller.list_all_shootings_by_state,
+  },
+  "/shootings/state/:stateCode": {
+    GET: controller.list_all_shootings_for_state,
   },
   "/shootings/last20": {
     GET: controller.list_last_shootings,
@@ -50,11 +55,15 @@ const routes = {
   },
   "/shootings/:shootingId": {
     GET: controller.read_a_shooting,
-    // PUT: controller.update_a_shooting,
-    // DELETE: controller.delete_a_shooting,
   },
   "/brutality": {
     GET: controller.list_all_brutality,
+  },
+  "/brutality/state": {
+    GET: controller.list_all_brutality_by_state,
+  },
+  "/brutality/state/:stateCode": {
+    GET: controller.list_all_brutality_for_state,
   },
   "/brutality/last20": {
     GET: controller.list_last_brutality,
