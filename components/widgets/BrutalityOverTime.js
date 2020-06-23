@@ -109,9 +109,8 @@ function BrutalityOverTime() {
 
   return (
     <div style={{ width: 500 }}>
-      <h2>Police Killings Over Time</h2>
       <VictoryChart
-        width={600}
+        width={500}
         height={470}
         scale={{ x: "time" }}
         containerComponent={
@@ -124,14 +123,14 @@ function BrutalityOverTime() {
       >
         <VictoryLine
           style={{
-            data: { stroke: COLORS.primary },
+            data: { stroke: COLORS.accent },
           }}
           data={data}
         />
       </VictoryChart>
       <VictoryChart
         padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
-        width={600}
+        width={500}
         height={100}
         scale={{ x: "time" }}
         containerComponent={
@@ -145,7 +144,7 @@ function BrutalityOverTime() {
         <VictoryAxis tickFormat={(x) => new Date(x).getFullYear()} />
         <VictoryLine
           style={{
-            data: { stroke: COLORS.primary },
+            data: { stroke: COLORS.accent },
           }}
           data={data}
         />

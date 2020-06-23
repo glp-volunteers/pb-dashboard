@@ -5,11 +5,23 @@ import { Col } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import BrutalityByState from "components/widgets/BrutalityByState";
 import BrutalityOverTime from "components/widgets/BrutalityOverTime";
-import GoogleChart from "components/widgets/GoogleChart";
+import BrutalityMap from "components/widgets/BrutalityMap";
 import EnhancedTable from "components/widgets/TableData";
 import Last20Victims from "components/widgets/Last20Victims";
 
-function HomePage() {
+export const getServerSideProps = async ({ req }) => {
+  const rawMapData = await fetch(
+    "http://policetracker.link/count/shootings/state/name"
+  );
+  const mapData = await rawMapData.json();
+  return {
+    props: {
+      mapData,
+    },
+  };
+};
+
+function HomePage({ mapData }) {
   return (
     <div>
       <Head />
@@ -17,27 +29,21 @@ function HomePage() {
       <Container>
         <Row>
           <Col sm={7}>
-            <GoogleChart />
-            <BrutalityOverTime />
+            <h3>Police Killings by State</h3>
+            <BrutalityMap data={mapData} />
+            <BrutalityByState />
           </Col>
 
           <Col sm={5}>
             <h3>Last 20 Reported Police Killings</h3>
             <Last20Victims />
+            <BrutalityOverTime />
           </Col>
         </Row>
       </Container>
 
       <Container>
         <EnhancedTable />
-      </Container>
-
-      <Container style={{ borderColor: "#c5c6c8" }}>
-        <Row>
-          <Col>
-            <BrutalityByState />
-          </Col>
-        </Row>
       </Container>
     </div>
   );
