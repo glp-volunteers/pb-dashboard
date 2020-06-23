@@ -43,7 +43,7 @@ class Last20Victims extends React.Component {
                             
 
                         <b> <a target="_blank" href= {item.media_link}> {item.victim_name}</a>
-                            </b> murdered in {item.state} State. Reported on {item.date}
+                            </b> killed in {item.state} State. Reported on {item.date}
                         </li>
                     ))};
                     
