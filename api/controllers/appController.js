@@ -4,16 +4,14 @@ import Brutality from "../model/appModelBrutality.js";
 
 // COUNT APIs
 export const count_all_records = function (req, res) {
-  Count.countAllRecords(
-    function (err, count) {
+  Count.countAllRecords(function (err, count) {
     if (err) return res.send(err);
     res.send(count);
   });
 };
 
 export const count_all_shootings = function (req, res) {
-  Count.countAllShootings(
-    function (err, count) {
+  Count.countAllShootings(function (err, count) {
     if (err) return res.send(err);
     res.send(count);
     res.end();
@@ -21,80 +19,70 @@ export const count_all_shootings = function (req, res) {
 };
 
 export const count_all_brutality = function (req, res) {
-  Count.countAllBrutality(
-    function (err, count) {
+  Count.countAllBrutality(function (err, count) {
     if (err) return res.send(err);
     res.send(count);
   });
 };
 
 export const count_all_records_by_state = function (req, res) {
-  Count.countAllRecordsByState(
-    function (err, count) {
+  Count.countAllRecordsByState(function (err, count) {
     if (err) return res.send(err);
     res.send(count);
   });
 };
 
 export const count_all_shootings_by_state = function (req, res) {
-  Count.countAllShootingsByState(
-    function (err, count) {
+  Count.countAllShootingsByState(function (err, count) {
     if (err) return res.send(err);
     res.send(count);
   });
 };
 
 export const count_all_brutality_by_state = function (req, res) {
-  Count.countAllBrutalityByState(
-    function (err, count) {
+  Count.countAllBrutalityByState(function (err, count) {
     if (err) return res.send(err);
     res.send(count);
   });
 };
 
 export const count_all_records_by_state_county = function (req, res) {
-  Count.countAllRecordsByStateCounty(
-    function (err, count) {
+  Count.countAllRecordsByStateCounty(function (err, count) {
     if (err) return res.send(err);
     res.send(count);
   });
 };
 
 export const count_all_shootings_by_state_county = function (req, res) {
-  Count.countAllShootingsByStateCounty(
-    function (err, count) {
+  Count.countAllShootingsByStateCounty(function (err, count) {
     if (err) return res.send(err);
     res.send(count);
   });
 };
 
 export const count_all_brutality_by_state_county = function (req, res) {
-  Count.countAllBrutalityByStateCounty(
-    function (err, count) {
+  Count.countAllBrutalityByStateCounty(function (err, count) {
     if (err) return res.send(err);
     res.send(count);
   });
 };
 
 export const count_all_records_by_stateabbv = function (req, res) {
-  Count.countAllRecordsByStateAbbv(
-    function (err, count) {
+  Count.countAllRecordsByStateAbbv(function (err, count) {
     if (err) return res.send(err);
     res.send(count);
   });
 };
 
 export const count_all_shootings_by_stateabbv = function (req, res) {
-  Count.countAllShootingsByStateAbbv(
-    function (err, count) {
+  Count.countAllShootingsByStateAbbv(function (err, count) {
     if (err) return res.send(err);
     res.send(count);
   });
 };
 
 export const count_all_brutality_by_stateabbv = function (req, res) {
-  Count.countAllBrutalityByStateAbbv(
-    function (err, count) {
+  Count.countAllBrutalityByStateAbbv(function (err, count) {
     if (err) return res.send(err);
     res.send(count);
   });
@@ -102,33 +90,28 @@ export const count_all_brutality_by_stateabbv = function (req, res) {
 
 // SHOOTINGS API
 export const list_all_shootings = function (req, res) {
-  Shooting.getAllShootings(
-    function (err, shooting) {
+  Shooting.getAllShootings(function (err, shooting) {
     if (err) return res.send(err);
     res.send(shooting);
   });
 };
 
 export const list_all_shootings_by_state = function (req, res) {
-  Shooting.getAllShootingsByState(
-    function (err, shooting) {
+  Shooting.getAllShootingsByState(function (err, shooting) {
     if (err) return res.send(err);
     res.send(shooting);
   });
 };
 
 export const list_last_shootings = function (req, res) {
-  Shooting.getLast20Shootings(
-    function (err, shooting) {
+  Shooting.getLast20Shootings(function (err, shooting) {
     if (err) return res.send(err);
     res.send(shooting);
   });
 };
 
 export const read_a_shooting = function (req, res) {
-  Shooting.getShootingById(
-    req.params.shootingId, 
-    function (err, shooting) {
+  Shooting.getShootingById(req.params.shootingId, function (err, shooting) {
     if (err) return res.send(err);
     res.json(shooting);
   });
@@ -147,59 +130,48 @@ export const read_span_shootings = function (req, res) {
 
 // BRUTALITY APIs
 export const list_all_brutality = function (req, res) {
-  Brutality.getAllBrutality(
-    function (err, brutality) {
+  Brutality.getAllBrutality(function (err, brutality) {
     if (err) return res.send(err);
     res.send(brutality);
   });
 };
 
 export const list_all_brutality_by_state = function (req, res) {
-  Brutality.getAllBrutalityByState(
-    function (err, brutality) {
+  Brutality.getAllBrutalityByState(function (err, brutality) {
     if (err) return res.send(err);
     res.send(brutality);
   });
 };
 
 export const list_all_brutality_for_state = function (req, res) {
-  Brutality.getAllBrutalityForState(
-    req.params.stateCode,
-    function (err, brutality) {
+  Brutality.getAllBrutalityForState(req.params.stateCode, function (
+    err,
+    brutality
+  ) {
     if (err) return res.send(err);
     res.send(brutality);
   });
 };
 
-export const list_all_shootings_by_state = function (req, res) {
-  Shooting.getAllShootingsByState(
-    function (err, shooting) {
-    if (err) return res.send(err);
-    res.send(shooting);
-  });
-};
-
 export const list_all_shootings_for_state = function (req, res) {
-  Shooting.getAllShootingsForState(
-    req.params.stateCode,
-    function (err, shooting) {
+  Shooting.getAllShootingsForState(req.params.stateCode, function (
+    err,
+    shooting
+  ) {
     if (err) return res.send(err);
     res.send(shooting);
   });
 };
 
 export const list_last_brutality = function (req, res) {
-  Brutality.getLast20Brutality(
-    function (err, brutality) {
+  Brutality.getLast20Brutality(function (err, brutality) {
     if (err) return res.send(err);
     res.send(brutality);
   });
 };
 
 export const read_a_brutality = function (req, res) {
-  Brutality.getBrutalityById(
-    req.params.brutalityId,
-    function (err, brutality) {
+  Brutality.getBrutalityById(req.params.brutalityId, function (err, brutality) {
     if (err) return res.send(err);
     res.json(brutality);
   });
