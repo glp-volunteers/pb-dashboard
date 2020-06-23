@@ -81,35 +81,21 @@ Object.keys(routes).forEach((route) => {
   compiledRoutes[route] = { ...routes[route], match: match(route) };
 });
 
-export default function handle(req, res) {
+export default function (req, res) {
   // Routes
   const {
     query: { route },
-    method,
   } = req;
   const routeJoined = `/${route.join("/")}`;
   const matchingRoute = Object.values(compiledRoutes).find((r) =>
     r.match(routeJoined)
   );
-  if (matchingRoute && matchingRoute[method]) {
-    const handler = matchingRoute[method];
+  if (matchingRoute && matchingRoute[req.method]) {
+    const handler = matchingRoute[req.method];
     const { params } = matchingRoute.match(routeJoined);
     handler({ ...req, params }, res);
     return;
   }
   res.statusCode = 404;
   res.end();
-}
-
-export async function getApiData(route) {
-  return new Promise(function (res, rej) {
-    const request = { query: { route: route.split("/") }, method: "GET" };
-    const response = {
-      send: function (data) {
-        res(JSON.parse(JSON.stringify(data)));
-      },
-      end: res,
-    };
-    handle(request, response);
-  });
 }
