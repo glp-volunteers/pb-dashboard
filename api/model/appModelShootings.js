@@ -41,12 +41,39 @@ Shooting.getShootingByIds = async function (shootingId1, shootingId2, result) {
 
 Shooting.getAllShootings = async function (result) {
   const sql = await getDb();
-  sql.query("Select * from shootings", function (err, res) {
+  sql.query("Select * from shootings",
+  function (err, res) {
     if (err) {
       console.log("error: ", err);
-      result(null, err);
+      result(err, null);
     } else {
-      console.log("shootings : ", res);
+      result(null, res);
+    }
+  });
+};
+
+Shooting.getAllShootingsByState = async function (stateCode, result) {
+  const sql = await getDb();
+  sql.query("Select * from shootings where state_code = ?",
+  stateCode,
+  function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+Shooting.getAllShootingsByState = async function (result) {
+  const sql = await getDb();
+  sql.query("Select * from shootings order by state",
+  function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
       result(null, res);
     }
   });
@@ -54,58 +81,15 @@ Shooting.getAllShootings = async function (result) {
 
 Shooting.getLast20Shootings = async function (result) {
   const sql = await getDb();
-  sql.query("Select * from shootings order by date desc limit 20", function (
-    err,
-    res
-  ) {
+  sql.query("Select * from shootings order by date desc limit 20",
+  function (err, res) {
     if (err) {
       console.log("error: ", err);
-      result(null, err);
+      result(err, null);
     } else {
-      console.log("shootings : ", res);
       result(null, res);
     }
   });
 };
-
-// Shooting.createShooting = async function (newShooting, result) {
-//        const sql = await getDb();
-//         sql.query("INSERT INTO shootings set ?", newShooting, function (err, res) {
-//                 if(err) {
-//                     console.log("error: ", err);
-//                     result(err, null);
-//                 }
-//                 else{
-//                     console.log(res.insertId);
-//                     result(null, res.insertId);
-//                 }
-//             });
-// };
-
-// Shooting.updateById = async function(id, shooting, result){
-//   const sql = await getDb();
-//   sql.query("UPDATE shootings SET shooting = ? WHERE shootingsID = ?", [shooting.shooting, id], function (err, res) {
-//           if(err) {
-//               console.log("error: ", err);
-//                 result(null, err);
-//              }
-//            else{
-//              result(null, res);
-//                 }
-//             });
-// };
-
-// Shooting.remove = async function(id, result){
-//      const sql = await getDb();
-//      sql.query("DELETE FROM shootings WHERE shootingsID = ?", [id], function (err, res) {
-//                 if(err) {
-//                     console.log("error: ", err);
-//                     result(null, err);
-//                 }
-//                 else{
-//                  result(null, res);
-//                 }
-//             });
-// };
 
 export default Shooting;

@@ -45,12 +45,39 @@ Brutality.getBrutalityByIds = async function (
 
 Brutality.getAllBrutality = async function (result) {
   const sql = await getDb();
-  sql.query("Select * from brutality", function (err, res) {
+  sql.query("Select * from brutality",
+  function (err, res) {
     if (err) {
       console.log("error: ", err);
-      result(null, err);
+      result(err, null);
     } else {
-      console.log("brutality : ", res);
+      result(null, res);
+    }
+  });
+};
+
+Brutality.getAllBrutalityForState = async function (stateCode, result) {
+  const sql = await getDb();
+  sql.query("Select * from brutality where state = ?",
+  stateCode,
+  function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+Brutality.getAllBrutalityByState = async function (result) {
+  const sql = await getDb();
+  sql.query("Select * from brutality order by state",
+  function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
       result(null, res);
     }
   });
@@ -58,58 +85,15 @@ Brutality.getAllBrutality = async function (result) {
 
 Brutality.getLast20Brutality = async function (result) {
   const sql = await getDb();
-  sql.query("Select * from brutality order by date desc limit 20", function (
-    err,
-    res
-  ) {
+  sql.query("Select * from brutality order by date desc limit 20", 
+  function (err, res) {
     if (err) {
       console.log("error: ", err);
-      result(null, err);
+      result(err, null);
     } else {
-      console.log("brutality : ", res);
       result(null, res);
     }
   });
 };
-
-// Brutality.createBrutality = async function (newBrutality, result) {
-//         const sql = await getDb();
-//         sql.query("INSERT INTO brutality set ?", newBrutality, function (err, res) {
-//                 if(err) {
-//                     console.log("error: ", err);
-//                     result(err, null);
-//                 }
-//                 else{
-//                     console.log(res.insertId);
-//                     result(null, res.insertId);
-//                 }
-//             });
-// };
-
-// Brutality.updateById = async function(id, brutality, result){
-//   const sql = await getDb();
-//   sql.query("UPDATE brutality SET brutality = ? WHERE brutalityID = ?", [brutality.brutality, id], function (err, res) {
-//           if(err) {
-//               console.log("error: ", err);
-//                 result(null, err);
-//              }
-//            else{
-//              result(null, res);
-//                 }
-//             });
-// };
-
-// Brutality.remove = async function(id, result){
-//      const sql = await getDb();
-//      sql.query("DELETE FROM brutality WHERE brutalityID = ?", [id], function (err, res) {
-//                 if(err) {
-//                     console.log("error: ", err);
-//                     result(null, err);
-//                 }
-//                 else{
-//                  result(null, res);
-//                 }
-//             });
-// };
 
 export default Brutality;

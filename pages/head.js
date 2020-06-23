@@ -1,32 +1,19 @@
-import React from "react";
+import React, {PureComponent} from "react";
+import ReactDOM from "react";
 import Link from "next/link";
-import Head from "pages/head";
 import materialUI from "@material-ui/core";
 import { Button } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import { Row } from "react-bootstrap";
-import BrutalityByState from "components/widgets/BrutalityByState";
-import BrutalityOverTime from "components/widgets/BrutalityOverTime";
-import BrutalityMap from "components/widgets/BrutalityMap";
-import EnhancedTable from "components/widgets/TableData";
-import Last20Victims from "components/widgets/Last20Victims";
-import AboutUs from "pages/aboutus";
-import { getApiData } from "api/routes/appRoutes";
+import Methodology from "pages/methodology";
 
-export const getServerSideProps = async ({ req }) => {
-  const mapData = await getApiData("count/shootings/state/name");
-  console.log("mapData", mapData);
-  return {
-    props: {
-      mapData,
-    },
-  };
-};
 
-function HomePage({ mapData }) {
+function Head() {
   return (
-    <div>
+
+  <div>
+
       <Container
         style={{ width: "1200px", backgroundColor: "#0B0C10", padding: "1em" }}
       >
@@ -65,47 +52,21 @@ function HomePage({ mapData }) {
           </Col>
         </Row>
       </Container>
-
-    <div>
-
-  <Head />
-
-
-      
-
-<Container>
-  <Row>
-      <Col sm={7} >
-        <BrutalityMap data={mapData} />
-      <BrutalityOverTime />
-
-      </Col>
-
-      <Col sm={5}>
-        <h3>Last 20 Reported Police Killings</h3>
-      <Last20Victims /> 
-      </Col>
-  </Row>
-
-</Container>
-
-
-  <Container>
-  <EnhancedTable/>
-
-  </Container>
-
-      <Container style={{borderColor: "#c5c6c8"}}>
-        <Row>
-          <Col>
-          <BrutalityByState />
-
-          </Col>
-          
-        </Row>
-      </Container>
-    </div>
-  );
+  
+      <Container
+      style={{ backgroundColor: "#000", color: "#000" }}
+      >
+        <Link href="/">
+          <a style={ { fontSize: 25, color:"#fff" } }>Home</a>
+        </Link>  &nbsp;
+        <Link href="/methodology">
+          <a style={ { fontSize: 25, color:"#fff" } }>Our Methodology</a>
+        </Link>
+       </Container>
+    <p></p>
+     </div>
+    );
 }
 
-export default HomePage;
+
+export default Head;
