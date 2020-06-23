@@ -105,7 +105,6 @@ export const list_all_shootings_by_state = function (req, res) {
 
 export const list_last_shootings = function (req, res) {
   Shooting.getLast20Shootings(function (err, shooting) {
-    console.log(err);
     if (err) return res.send(err);
     res.send(shooting);
   });
