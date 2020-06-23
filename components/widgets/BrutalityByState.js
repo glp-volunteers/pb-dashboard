@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  VictoryChart,
-  VictoryBar,
-  VictoryTheme,
-  VictoryZoomContainer,
-} from "victory";
+import { VictoryChart, VictoryBar } from "victory";
 
 import { COLORS } from "styles/constants";
 
@@ -38,20 +33,12 @@ class BrutalityByState extends React.Component {
       return <div> Loading...</div>;
     } else {
       return (
-        <div style={{ width: 500 }}>
-          <h2>Police Killings By State</h2>
-          <VictoryChart
-            height={800}
-            theme={VictoryTheme.material}
-            domainPadding={{ x: 0 }}
-            containerComponent={
-              <VictoryZoomContainer zoomDomain={{ x: [1, 51] }} />
-            }
-          >
+        <div style={{ width: 500, height: 1150 }}>
+          <VictoryChart domainPadding={{ x: 0 }} width={500} height={1150}>
             <VictoryBar
               barRatio={0.8}
               style={{
-                data: { fill: COLORS.primary },
+                data: { fill: COLORS.accent },
               }}
               horizontal
               data={output}
