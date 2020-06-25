@@ -38,6 +38,9 @@ const routes = {
   "/count/brutality/statecounty": {
     GET: controller.count_all_brutality_by_state_county,
   },
+  "/count/shootings/overtime": {
+    GET: controller.count_all_shootings_over_time,
+  },
   "/shootings": {
     GET: controller.list_all_shootings,
   },
