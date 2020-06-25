@@ -187,7 +187,7 @@ Count.countAllBrutalityByStateCounty = async function (result) {
 
 Count.countAllShootingsOverTiime = async function (result) {
   const sql = await getDb();
-  sql.query(`Select count(date) as 'count', date_format(date, "%Y-%m") as 'month' from shootings where date_format(date, "%Y-%m") != '0000-00' group by date_format(date, "%Y-%m") having count(*) >= 1 order by date asc`,
+  sql.query("Select count(date) as 'count', date_format(date, '%Y-%m') as 'month' from shootings where date_format(date, '%Y-%m') != '0000-00' group by date_format(date, '%Y-%m') having count(*) >= 1 order by date asc",
     function (err, res) {
       if (err) {
         console.log("error: ", err);
