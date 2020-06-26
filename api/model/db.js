@@ -16,9 +16,9 @@ export default async function () {
     return Promise.resolve(connection);
   }
   return new Promise(function (res, rej) {
+    connected = true;
     connection.connect(function (err) {
-      if (err) throw rej(err);
-      connected = true;
+      if (err) rej(err);
       res(connection);
     });
   });
