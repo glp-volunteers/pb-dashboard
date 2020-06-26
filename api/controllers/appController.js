@@ -3,6 +3,13 @@ import Count from "../model/appModelCount.js";
 import Brutality from "../model/appModelBrutality.js";
 
 // COUNT APIs
+export const count_all_shootings_over_time = function (req, res) {
+  Count.countAllShootingsOverTime(function (err, count) {
+    if (err) return res.send(err);
+    res.send(count);
+  });
+};
+
 export const count_all_records = function (req, res) {
   Count.countAllRecords(function (err, count) {
     if (err) return res.send(err);
