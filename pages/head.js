@@ -16,7 +16,7 @@ function Head() {
             src="https://images.squarespace-cdn.com/content/5e7662fe45630059ae9347cf/1591116153336-2V6MDHUQAXMOIKOZI6DJ/glp+text+only+logo+neon.png?format=1500w&content-type=image%2Fpng"
           />
         </Col>
-        <Col className="d-sm-none d-md-block">
+        <Col className="d-none d-md-block">
           <p>
             <a href="https://www.grassrootslaw.org/" style={nav}>
               Grassroots Law Project
