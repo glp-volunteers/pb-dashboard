@@ -1,8 +1,9 @@
 import React from "react";
-import Head from "pages/head";
 import { Container } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import { Row } from "react-bootstrap";
+
+import Head from "pages/head";
 import BrutalityByState from "components/widgets/BrutalityByState";
 import BrutalityOverTime from "components/widgets/BrutalityOverTime";
 import BrutalityMap from "components/widgets/BrutalityMap";
@@ -23,29 +24,25 @@ export const getServerSideProps = async ({ req }) => {
 
 function HomePage({ mapData }) {
   return (
-    <div>
+    <Container>
       <Head />
 
-      <Container>
-        <Row>
-          <Col sm={7}>
-            <h3>Police Killings by State</h3>
-            <BrutalityMap data={mapData} />
-            <BrutalityByState />
-          </Col>
+      <Row>
+        <Col lg={8}>
+          <h3>Police Killings by State</h3>
+          <BrutalityMap data={mapData} />
+          <BrutalityByState />
+        </Col>
 
-          <Col sm={5}>
-            <h3>Last 20 Reported Police Killings</h3>
-            <Last20Victims />
-            <BrutalityOverTime />
-          </Col>
-        </Row>
-      </Container>
+        <Col lg={4}>
+          <h3>Last 20 Reported Police Killings</h3>
+          <Last20Victims />
+          <BrutalityOverTime />
+        </Col>
+      </Row>
 
-      <Container>
-        <EnhancedTable />
-      </Container>
-    </div>
+      <EnhancedTable />
+    </Container>
   );
 }
 

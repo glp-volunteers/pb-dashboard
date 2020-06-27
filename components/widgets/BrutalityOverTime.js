@@ -108,7 +108,7 @@ function BrutalityOverTime() {
   });
 
   return (
-    <div style={{ width: 500 }}>
+    <div>
       <VictoryChart
         width={500}
         height={470}

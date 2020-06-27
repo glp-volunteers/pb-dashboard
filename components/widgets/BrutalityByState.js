@@ -33,20 +33,18 @@ class BrutalityByState extends React.Component {
       return <div> Loading...</div>;
     } else {
       return (
-        <div style={{ width: 500, height: 1150 }}>
-          <VictoryChart domainPadding={{ x: 0 }} width={500} height={1150}>
-            <VictoryBar
-              barRatio={0.8}
-              style={{
-                data: { fill: COLORS.accent },
-              }}
-              horizontal
-              data={output}
-              x="state_code"
-              y="total"
-            />
-          </VictoryChart>
-        </div>
+        <VictoryChart domainPadding={{ x: 0 }} width={500} height={1150}>
+          <VictoryBar
+            barRatio={0.8}
+            style={{
+              data: { fill: COLORS.accent },
+            }}
+            horizontal
+            data={output}
+            x="state_code"
+            y="total"
+          />
+        </VictoryChart>
       );
     }
   }
