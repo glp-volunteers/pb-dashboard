@@ -29,13 +29,13 @@ function HomePage({ mapData }) {
 
       <Row>
         <Col lg={8}>
-          <h3>Police Killings by State</h3>
+          <h2>Police Killings by State</h2>
           <BrutalityMap data={mapData} />
           <BrutalityByState />
         </Col>
 
         <Col lg={4}>
-          <h3>Last 20 Reported Police Killings</h3>
+          <h2>Most Recent Police Killings</h2>
           <Last20Victims />
           <BrutalityOverTime />
         </Col>

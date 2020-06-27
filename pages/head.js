@@ -1,18 +1,12 @@
-import React, { PureComponent } from "react";
-import ReactDOM from "react";
+import React from "react";
 import Link from "next/link";
-import materialUI from "@material-ui/core";
-import { Button } from "react-bootstrap";
-import { Container } from "react-bootstrap";
-import { Col } from "react-bootstrap";
-import { Row } from "react-bootstrap";
-import Methodology from "pages/methodology";
+import { Button, Container, Col, Row, Navbar, Nav } from "react-bootstrap";
 
-import headStyles from "styles/head";
+import { container, brand, nav, button } from "styles/head";
 
 function Head() {
   return (
-    <Container style={headStyles}>
+    <Container style={container}>
       <Row>
         <Col>
           <img
@@ -23,37 +17,25 @@ function Head() {
           />
           ​
         </Col>
-        <Col>
-          <h2
-            align="center"
-            style={{
-              font: "helvetica-neue",
-              fontWeight: "heavy",
-              color: "#66fcf1",
-            }}
-          >
-            Police Killings Dashboard
-          </h2>
-        </Col>
-        <Col>
-          <Button
-            style={{ backgroundColor: "#66fcf1", color: "#000" }}
-            variant="link"
-            href="https://secure.actblue.com/donate/glp-homepage?refcode=homepage_nav"
-          >
-            DONATE
-          </Button>
-        </Col>
       </Row>
-      <Row>
-        <Link href="/">
-          <a style={{ fontSize: 25, color: "#fff" }}>Home</a>
-        </Link>{" "}
-        &nbsp;
-        <Link href="/methodology">
-          <a style={{ fontSize: 25, color: "#fff" }}>Our Methodology</a>
-        </Link>
-      </Row>
+      <Nav>
+        <Navbar.Brand style={brand} href="/">
+          Police Killings Dashboard
+        </Navbar.Brand>
+        <Nav.Link style={nav} href="/">
+          Home
+        </Nav.Link>
+        <Nav.Link style={nav} href="/methodology">
+          Our Methodology
+        </Nav.Link>
+        <Button
+          style={button}
+          variant="link"
+          href="https://secure.actblue.com/donate/glp-homepage?refcode=homepage_nav"
+        >
+          Donate
+        </Button>
+      </Nav>
     </Container>
   );
 }
