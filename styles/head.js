@@ -1,5 +1,3 @@
-import { withTheme } from "@material-ui/core";
-
 export const container = {
   "background-color": "black",
   padding: "1em",

@@ -33,7 +33,7 @@ class Last20Victims extends React.Component {
             {items.map((item) => {
               const humanDate = new Date(item.date).toDateString();
               return (
-                <li key={item.id}>
+                <li key={item.shootingsID}>
                   <b>
                     <a target="_blank" rel="noreferrer" href={item.media_link}>
                       {item.victim_name}
