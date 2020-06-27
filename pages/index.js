@@ -40,8 +40,12 @@ function HomePage({ mapData }) {
           <BrutalityOverTime />
         </Col>
       </Row>
-
-      <EnhancedTable />
+      <Row className="mt-3">
+        <Col>
+          <h2>Police Brutality by the Numbers</h2>
+          <EnhancedTable />
+        </Col>
+      </Row>
     </Container>
   );
 }
