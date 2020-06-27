@@ -2,6 +2,7 @@ export const container = {
   "background-color": "black",
   padding: "1em",
   marginBottom: "1em",
+  color: "white",
 };
 
 export const brand = {
