@@ -1,13 +1,14 @@
 import mysql from "mysql";
 
-const dev = process.env.NODE_ENV !== "production";
 let connected = false;
+
+console.log(`Running with database host ${process.env.DB_HOST}`);
 
 // MySQL setup
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: dev ? "root" : "milehigh_glp_read",
-  password: process.env.DBPASS,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
   database: "milehigh_grassroots_law",
 });
 
