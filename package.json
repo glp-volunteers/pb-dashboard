@@ -4,6 +4,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "next",
+		"dev-with-db": "export DB_HOST=localhost && export DB_USER=root && next",
 		"build": "next build",
 		"start": "next start",
 		"start-dev-db": "./mysql/start.sh",
