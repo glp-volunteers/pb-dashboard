@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 class Last20Victims extends React.Component {
   constructor(props) {
@@ -10,9 +10,7 @@ class Last20Victims extends React.Component {
   }
 
   componentDidMount() {
-    fetch(
-      "http://cors-anywhere.herokuapp.com/policetracker.link/shootings/last20"
-    )
+    fetch("/api/shootings/last20")
       .then((res) => res.json())
       .then((json) => {
         this.setState({
