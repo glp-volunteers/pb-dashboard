@@ -14,7 +14,7 @@ This application is built on the React application framework [Next.js](https://n
 
 ### Pre-requisites
 
-In order to use run this project locally, you will need to have [node](https://nodejs.org/en/download/) and [docker](https://docs.docker.com/desktop/) installed.
+In order to use run this project locally, you will need to have [node](https://nodejs.org/en/download/) installed.
 
 ### Installation
 
@@ -26,12 +26,30 @@ npm i
 
 ### Running Locally
 
-#### Run the Database
+#### Running the Development Server
+
+To run, start the development server with the following command:
+
+```
+npm run dev
+```
+
+#### Run the Database (Optional)
 
 This repo comes with a development MySQL database that runs in docker based on the latest production dump (in mysql/dump.sql). You can generally start the database and just leave it running in the background.
 
+_Note: You only need to do this if you want to test making changes to the database. Most of the time you can point to the hosted DB in AWS._
+
+In order to run the DB locally, you will need [docker](https://docs.docker.com/desktop/) installed.
+
 ```
 npm run start-dev-db
+```
+
+Then run the dev server pointed at the local database:
+
+```
+npm run dev-with-db
 ```
 
 If you need to refresh the database for any reason, stop and re-start it:
@@ -39,14 +57,6 @@ If you need to refresh the database for any reason, stop and re-start it:
 ```
 npm run stop-dev-db
 npm run start-dev-db
-```
-
-#### Running the Development Server
-
-To run, start the development server with the following command:
-
-```
-npm run dev
 ```
 
 ### Running in Production
