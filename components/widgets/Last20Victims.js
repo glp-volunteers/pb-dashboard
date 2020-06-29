@@ -1,4 +1,7 @@
 import React from "react";
+import SimpleBarReact from "simplebar-react";
+
+
 
 class Last20Victims extends React.Component {
   constructor(props) {
@@ -26,12 +29,15 @@ class Last20Victims extends React.Component {
       return <div> Loading...</div>;
     } else {
       return (
-        <div className="Last20Victims">
-          <ul>
+
+        <div className="Last20Victims"  >
+          <SimpleBarReact style={{ maxHeight: 450}}>
+          <ul >
             {items.map((item) => {
               const humanDate = new Date(item.date).toDateString();
               return (
-                <li key={item.shootingsID}>
+
+                <li key={item.shootingsID} > 
                   <b>
                     <a target="_blank" rel="noreferrer" href={item.media_link}>
                       {item.victim_name}
@@ -43,6 +49,7 @@ class Last20Victims extends React.Component {
               );
             })}
           </ul>
+          </SimpleBarReact>
         </div>
       );
     }

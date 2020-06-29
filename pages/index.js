@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Container, Col, Row, Form } from "react-bootstrap";
-
 import Head from "pages/head";
 import BrutalityByState from "components/widgets/BrutalityByState";
 import BrutalityOverTime from "components/widgets/BrutalityOverTime";
 import BrutalityMap from "components/widgets/BrutalityMap";
 import EnhancedTable from "components/widgets/TableData";
 import Last20Victims from "components/widgets/Last20Victims";
+import SimpleBarReact from "simplebar-react";
+
 import { getApiData } from "api/routes/appRoutes";
 
 export const getServerSideProps = async () => {
@@ -46,7 +47,7 @@ function HomePage({ shootingsByState, shootingsPerCapita, shootingsOverTime }) {
       <Head />
 
       <Row>
-        <Col lg={8}>
+        <Col lg={9}>
           <h2>Police Killings by State</h2>
           <Form.Check
             type="switch"
@@ -59,23 +60,38 @@ function HomePage({ shootingsByState, shootingsPerCapita, shootingsOverTime }) {
           <BrutalityMap
             data={isPerCapita ? shootingsPerCapita : shootingsByState}
           />
+          
+
           <BrutalityByState
-            data={isPerCapita ? shootingsPerCapita : shootingsByState}
+            data={isPerCapita ? shootingsPerCapita : shootingsByState} 
           />
+          
+          <BrutalityOverTime data={shootingsOverTime}/>
+
+          
+      </Col>
+      <Col lg={3}>
+        <h2>Recent Police Killings</h2>
+        <SimpleBarReact style={{ maxHeight:300 }}>
+          <Last20Victims />
+          </SimpleBarReact>
+          
+        </Col>
+</Row>
+
+<Col>
+          <h2>Police Brutality by the Numbers</h2>
+          
+          <EnhancedTable />
+          
         </Col>
 
-        <Col lg={4}>
-          <h2>Most Recent Police Killings</h2>
-          <Last20Victims />
-          <BrutalityOverTime data={shootingsOverTime}/>
-        </Col>
-      </Row>
-      <Row className="mt-3">
-        <Col>
-          <h2>Police Brutality by the Numbers</h2>
-          <EnhancedTable />
-        </Col>
-      </Row>
+
+        
+
+
+
+  
     </Container>
   );
 }
