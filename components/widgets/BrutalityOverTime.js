@@ -14,37 +14,57 @@ function transformData(data) {
   });
 }
 
-const BrutalityOverTime = ({data}) => {
-
+const BrutalityOverTime = ({ data }) => {
   const [zoomDomain, setZoomDomain] = useState({
     x: [new Date("2019-09"), new Date("2019-12")],
   });
 
   return (
-    <div>
-      <VictoryChart
-        width={500}
-        height={470}
-        scale={{ x: "time" }}
-        containerComponent={
-          <VictoryZoomContainer
-            zoomDimension="x"
-            zoomDomain={zoomDomain}
-            onZoomDomainChange={setZoomDomain}
+    <div style={{ marginBottom: "30px" }}>
+      <div style={{ marginBottom: "30px" }}>
+        <VictoryChart
+          width={500}
+          height={470}
+          scale={{ x: "time" }}
+          containerComponent={
+            <VictoryZoomContainer
+              zoomDimension="x"
+              zoomDomain={zoomDomain}
+              onZoomDomainChange={setZoomDomain}
+            />
+          }
+        >
+          <VictoryLine
+            style={{
+              data: { stroke: COLORS.accent },
+            }}
+            data={transformData(data)}
           />
-        }
-      >
-        <VictoryLine
-          style={{
-            data: { stroke: COLORS.accent },
-          }}
-          data={transformData(data)}
-        />
-      </VictoryChart>
+          <VictoryAxis
+            label="Span of Time"
+            style={{
+              axisLabel: {
+                fontSize: 10,
+                padding: 30,
+              },
+            }}
+          />
+          <VictoryAxis
+            dependentAxis
+            label="Number of Shootings"
+            style={{
+              axisLabel: {
+                fontSize: 10,
+                padding: 15,
+              },
+            }}
+          />
+        </VictoryChart>
+      </div>
       <VictoryChart
         padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
         width={500}
-        height={100}
+        height={150}
         scale={{ x: "time" }}
         containerComponent={
           <VictoryBrushContainer
@@ -61,9 +81,19 @@ const BrutalityOverTime = ({data}) => {
           }}
           data={transformData(data)}
         />
+        <VictoryAxis
+          dependentAxis
+          label="# of Shootings"
+          style={{
+            axisLabel: {
+              fontSize: 10,
+              padding: 15,
+            },
+          }}
+        />
       </VictoryChart>
     </div>
   );
-}
+};
 
 export default BrutalityOverTime;
