@@ -8,7 +8,13 @@ import {
 } from "victory";
 import { COLORS } from "styles/constants";
 
-function BrutalityOverTime({data}) {
+function transformData(data) {
+  return data.map(function (d) {
+    return { x: new Date(d.month), y: d.count };
+  });
+}
+
+const BrutalityOverTime = ({data}) => {
 
   const [zoomDomain, setZoomDomain] = useState({
     x: [new Date("2019-09"), new Date("2019-12")],
@@ -32,7 +38,7 @@ function BrutalityOverTime({data}) {
           style={{
             data: { stroke: COLORS.accent },
           }}
-          data={data}
+          data={transformData(data)}
         />
       </VictoryChart>
       <VictoryChart
@@ -53,7 +59,7 @@ function BrutalityOverTime({data}) {
           style={{
             data: { stroke: COLORS.accent },
           }}
-          data={data}
+          data={transformData(data)}
         />
       </VictoryChart>
     </div>
