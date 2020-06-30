@@ -15,10 +15,8 @@ export const getServerSideProps = async () => {
   const populationDataRaw = await fetch(
     "https://datausa.io/api/data?drilldowns=State&measures=Population&year=latest"
     );
-  const shootingsOverTimeRaw = await getApiData("count/shootings/overtime");
+  const shootingsOverTime = await getApiData("count/shootings/overtime");
   const populationData = await populationDataRaw.json();
-
-  const shootingsOverTime = await JSON.parse(JSON.stringify(shootingsOverTimeRaw));
 
   const filteredShootingsByState = shootingsByState.filter((state) =>
     populationData.data.find((s) => s.State === state.state)
