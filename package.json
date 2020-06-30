@@ -26,6 +26,7 @@
 		"react-google-charts": "^3.0.15",
 		"react-simple-maps": "^2.1.2",
 		"react-use": "^15.3.0",
+		"simplebar-react": "^2.2.1",
 		"victory": "^34.3.11"
 	},
 	"devDependencies": {
