@@ -20,47 +20,45 @@ const BrutalityOverTime = ({ data }) => {
   });
 
   return (
-    <div style={{ marginBottom: "30px" }}>
-      <div style={{ marginBottom: "30px" }}>
-        <VictoryChart
-          width={500}
-          height={470}
-          scale={{ x: "time" }}
-          containerComponent={
-            <VictoryZoomContainer
-              zoomDimension="x"
-              zoomDomain={zoomDomain}
-              onZoomDomainChange={setZoomDomain}
-            />
-          }
-        >
-          <VictoryLine
-            style={{
-              data: { stroke: COLORS.accent },
-            }}
-            data={transformData(data)}
+    <div>
+      <VictoryChart
+        width={500}
+        height={470}
+        scale={{ x: "time" }}
+        containerComponent={
+          <VictoryZoomContainer
+            zoomDimension="x"
+            zoomDomain={zoomDomain}
+            onZoomDomainChange={setZoomDomain}
           />
-          <VictoryAxis
-            label="Span of Time"
-            style={{
-              axisLabel: {
-                fontSize: 10,
-                padding: 30,
-              },
-            }}
-          />
-          <VictoryAxis
-            dependentAxis
-            label="Number of Shootings"
-            style={{
-              axisLabel: {
-                fontSize: 10,
-                padding: 30,
-              },
-            }}
-          />
-        </VictoryChart>
-      </div>
+        }
+      >
+        <VictoryLine
+          style={{
+            data: { stroke: COLORS.accent },
+          }}
+          data={transformData(data)}
+        />
+        <VictoryAxis
+          label="Span of Time"
+          style={{
+            axisLabel: {
+              fontSize: 10,
+              padding: 30,
+            },
+          }}
+        />
+        <VictoryAxis
+          dependentAxis
+          label="Number of Shootings"
+          style={{
+            axisLabel: {
+              fontSize: 10,
+              padding: 30,
+            },
+          }}
+        />
+      </VictoryChart>
       <VictoryChart
         padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
         width={500}
