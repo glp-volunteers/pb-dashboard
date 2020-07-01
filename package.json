@@ -6,7 +6,7 @@
 		"dev": "next",
 		"dev-with-db": "export DB_HOST=localhost && export DB_USER=root && next",
 		"build": "next build",
-		"start": "next start",
+		"start": "next start -p $PORT",
 		"start-dev-db": "./mysql/start.sh",
 		"stop-dev-db": "./mysql/stop.sh"
 	},
