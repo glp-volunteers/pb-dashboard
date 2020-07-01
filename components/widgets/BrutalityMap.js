@@ -27,6 +27,7 @@ const MapChart = ({ data }) => {
             const cur = data.find((s) => s.state === geo.properties.name);
             return (
               <Geography
+                aria-label={geo.properties.name}
                 key={geo.rsmKey}
                 geography={geo}
                 fill={cur ? colorScale(cur.total) : "#eee"}
