@@ -55,7 +55,7 @@ const BrutalityOverTime = ({ data }) => {
             style={{
               axisLabel: {
                 fontSize: 10,
-                padding: 15,
+                padding: 30,
               },
             }}
           />
@@ -87,7 +87,7 @@ const BrutalityOverTime = ({ data }) => {
           style={{
             axisLabel: {
               fontSize: 10,
-              padding: 15,
+              padding: 30,
             },
           }}
         />
