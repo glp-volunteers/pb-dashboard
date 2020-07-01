@@ -50,7 +50,7 @@ const BrutalityOverTime = ({ data }) => {
         />
         <VictoryAxis
           dependentAxis
-          label="Number of Shootings"
+          label="Number of Killings"
           style={{
             axisLabel: {
               fontSize: 10,
@@ -81,7 +81,7 @@ const BrutalityOverTime = ({ data }) => {
         />
         <VictoryAxis
           dependentAxis
-          label="# of Shootings"
+          label="# of Killings"
           style={{
             axisLabel: {
               fontSize: 10,
