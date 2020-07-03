@@ -5,8 +5,8 @@
 	"scripts": {
 		"dev": "next",
 		"dev-with-db": "export DB_HOST=localhost && export DB_USER=root && next",
-		"build": "next build",
-		"start": "node ./scripts/syncDb.js && next start -p $PORT",
+		"build": "next build && node ./scripts/syncDb.js",
+		"start": "next start -p $PORT",
 		"start-dev-db": "./db/start.sh",
 		"stop-dev-db": "./db/stop.sh"
 	},
