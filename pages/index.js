@@ -6,21 +6,24 @@ import BrutalityOverTime from "components/widgets/BrutalityOverTime";
 import BrutalityMap from "components/widgets/BrutalityMap";
 import EnhancedTable from "components/widgets/TableData";
 import Last20Victims from "components/widgets/Last20Victims";
-import SimpleBarReact from "simplebar-react";
-
 import { getApiData } from "api/routes/appRoutes";
 
 export const getServerSideProps = async () => {
+  
   const shootingsByState = await getApiData("count/shootings/state/name");
-  const populationDataRaw = await fetch(
-    "https://datausa.io/api/data?drilldowns=State&measures=Population&year=latest"
-    );
+  
+  const populationDataRaw = await fetch("https://datausa.io/api/data?drilldowns=State&measures=Population&year=latest");
+  
   const shootingsOverTime = await getApiData("count/shootings/overtime");
+
+  const last20Items = await getApiData("shootings/last20");
+
   const populationData = await populationDataRaw.json();
 
   const filteredShootingsByState = shootingsByState.filter((state) =>
     populationData.data.find((s) => s.State === state.state)
   );
+  
   const shootingsPerCapita = filteredShootingsByState.map((state) => ({
     ...state,
     total:
@@ -33,17 +36,17 @@ export const getServerSideProps = async () => {
       shootingsByState: filteredShootingsByState,
       shootingsPerCapita,
       shootingsOverTime,
+      last20Items,
     },
   };
 };
 
-function HomePage({ shootingsByState, shootingsPerCapita, shootingsOverTime }) {
+function HomePage({ shootingsByState, shootingsPerCapita, shootingsOverTime, last20Items }) {
   const [isPerCapita, setIsPerCapita] = useState(false);
 
   return (
     <Container>
       <Head />
-
       <Row>
         <Col lg={9}>
           <h2>Police Killings by State</h2>
@@ -57,39 +60,21 @@ function HomePage({ shootingsByState, shootingsPerCapita, shootingsOverTime }) {
           />
           <BrutalityMap
             data={isPerCapita ? shootingsPerCapita : shootingsByState}
-          />
-          
-
+          />        
           <BrutalityByState
             data={isPerCapita ? shootingsPerCapita : shootingsByState} 
-          />
-          
-          <BrutalityOverTime data={shootingsOverTime}/>
-
-          
+          />        
+          <BrutalityOverTime data={shootingsOverTime}/>          
       </Col>
       <Col lg={3}>
         <h2>Recent Police Killings</h2>
-        <SimpleBarReact style={{ maxHeight:300 }}>
-          <Last20Victims />
-          </SimpleBarReact>
-          
+          <Last20Victims data={last20Items} />
         </Col>
-</Row>
-
-<Col>
-          <h2>Police Brutality by the Numbers</h2>
-          
-          <EnhancedTable />
-          
-        </Col>
-
-
-        
-
-
-
-  
+        </Row>
+        <Col>
+          <h2>Police Brutality by the Numbers</h2>          
+          <EnhancedTable />          
+        </Col> 
     </Container>
   );
 }
