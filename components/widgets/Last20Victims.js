@@ -43,7 +43,7 @@ class Last20Victims extends React.Component {
                       {item.victim_name}
                     </a>
                   </b>
-                  &nbsp;was killed in {item.state} State. Reported on&nbsp;
+                  &nbsp;was killed in {item.county} County, {item.state}. Reported on&nbsp;
                   {humanDate}.
                 </li>
               );
