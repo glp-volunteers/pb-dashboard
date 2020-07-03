@@ -1,5 +1,5 @@
 export const container = {
-  "background-color": "black",
+  backgroundColor: "black",
   padding: "1em",
   marginBottom: "1em",
   color: "white",
