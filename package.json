@@ -5,10 +5,10 @@
 	"scripts": {
 		"dev": "next",
 		"dev-with-db": "export DB_HOST=localhost && export DB_USER=root && next",
-		"build": "next build",
+		"build": "next build && node ./scripts/syncDb.js",
 		"start": "next start -p $PORT",
-		"start-dev-db": "./mysql/start.sh",
-		"stop-dev-db": "./mysql/stop.sh"
+		"start-dev-db": "./db/start.sh",
+		"stop-dev-db": "./db/stop.sh"
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^1.2.29",
@@ -19,6 +19,7 @@
 		"bootstrap": "^4.5.0",
 		"google-charts": "^2.0.0",
 		"mysql": "^2.18.1",
+		"neat-csv": "^5.2.0",
 		"next": "^9.4.4",
 		"path-to-regexp": "^6.1.0",
 		"react": "^16.13.1",
