@@ -109,13 +109,13 @@ const insertQuery =
 connection.connect(async function (err) {
   if (err) throw err;
 
-  const data = fs.readFileSync("./db/police_killings.csv");
+  const data = fs.readFileSync("./db/police_killings.csv", "utf-8");
   const parsedData = await neatCsv(data);
   const csvData = parsedData.map(transform);
   await query(connection, "TRUNCATE TABLE shootings");
-  for (let d in csvData) {
-    console.log(`Inserting ${d.shootingsID}`);
-    await query(connection, insertQuery, [[d]]);
+  for (let i = 0; i < csvData.length; i++) {
+    console.log(`Inserting record ${i}`);
+    await query(connection, insertQuery, [[csvData[i]]]);
   }
   process.exit(0);
 });
