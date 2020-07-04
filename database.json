@@ -1,0 +1,10 @@
+{
+    "prod": {
+      "host": { "ENV" : "DB_HOST" },
+      "user": { "ENV" : "DB_WRITE_USER" },
+      "password" : { "ENV" : "DB_WRITE_PASSWORD" },
+      "database": "milehigh_grassroots_law",
+      "driver": "mysql",
+      "multipleStatements": true
+    }
+}
