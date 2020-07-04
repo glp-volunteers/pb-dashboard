@@ -54,7 +54,7 @@ export const count_all_records_by_state_county = function (req, res) {
 };
 
 export const count_all_shootings_by_state_county = function (req, res) {
-  Count.countAllShootingsByStateCounty(function (err, count) {
+  Count.countAllShootingsByStateCounty(req.params.state, function (err, count) {
     if (err) return res.send(err);
     res.send(count);
   });
@@ -89,14 +89,14 @@ export const count_all_brutality_by_stateabbv = function (req, res) {
 };
 
 export const count_all_shootings_over_time = function (req, res) {
-  Count.countAllShootingsOverTime(function (err, count) {
+  Count.countAllShootingsOverTime(req.params.state, function (err, count) {
     if (err) return res.send(err);
     res.send(count);
   });
 };
 
 export const count_top_police_departments = function (req, res) {
-  Count.countTopPoliceDepartments(function (err, count) {
+  Count.countTopPoliceDepartments(req.params.state, function (err, count) {
     if (err) return res.send(err);
     res.send(count);
   });
@@ -118,7 +118,7 @@ export const list_all_shootings_by_state = function (req, res) {
 };
 
 export const list_last_shootings = function (req, res) {
-  Shooting.getLast20Shootings(function (err, shooting) {
+  Shooting.getLast20Shootings(req.params.state, function (err, shooting) {
     if (err) return res.send(err);
     res.send(shooting);
   });

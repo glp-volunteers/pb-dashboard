@@ -41,8 +41,7 @@ Shooting.getShootingByIds = async function (shootingId1, shootingId2, result) {
 
 Shooting.getAllShootings = async function (result) {
   const sql = await getDb();
-  sql.query("Select * from shootings",
-  function (err, res) {
+  sql.query("Select * from shootings", function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -54,22 +53,23 @@ Shooting.getAllShootings = async function (result) {
 
 Shooting.getAllShootingsByState = async function (stateCode, result) {
   const sql = await getDb();
-  sql.query("Select * from shootings where state_code = ?",
-  stateCode,
-  function (err, res) {
-    if (err) {
-      console.log("error: ", err);
-      result(err, null);
-    } else {
-      result(null, res);
+  sql.query(
+    "Select * from shootings where state_code = ?",
+    stateCode,
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
     }
-  });
+  );
 };
 
 Shooting.getAllShootingsByState = async function (result) {
   const sql = await getDb();
-  sql.query("Select * from shootings order by state",
-  function (err, res) {
+  sql.query("Select * from shootings order by state", function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -79,10 +79,11 @@ Shooting.getAllShootingsByState = async function (result) {
   });
 };
 
-Shooting.getLast20Shootings = async function (result) {
+Shooting.getLast20Shootings = async function (state, result) {
   const sql = await getDb();
-  sql.query("Select * from shootings order by date desc limit 20",
-  function (err, res) {
+  const where = state ? "where state = ?" : "";
+  const query = `Select * from shootings ${where} order by date desc limit 20`;
+  sql.query(query, [state], function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);

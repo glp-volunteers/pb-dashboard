@@ -1,11 +1,5 @@
-import React, { useState } from "react";
-import {
-  VictoryChart,
-  VictoryZoomContainer,
-  VictoryBrushContainer,
-  VictoryLine,
-  VictoryAxis,
-} from "victory";
+import React from "react";
+import { VictoryChart, VictoryLine, VictoryAxis } from "victory";
 import { useMeasure } from "react-use";
 import { COLORS } from "styles/constants";
 
@@ -16,25 +10,11 @@ function transformData(data) {
 }
 
 const BrutalityOverTime = ({ data }) => {
-  const [zoomDomain, setZoomDomain] = useState({
-    x: [new Date("2020-04"), new Date("2020-06")],
-  });
   const [ref, { width }] = useMeasure();
 
   return (
     <div ref={ref}>
-      <VictoryChart
-        width={width}
-        height={330}
-        scale={{ x: "time" }}
-        containerComponent={
-          <VictoryZoomContainer
-            zoomDimension="x"
-            zoomDomain={zoomDomain}
-            onZoomDomainChange={setZoomDomain}
-          />
-        }
-      >
+      <VictoryChart width={width} height={450} scale={{ x: "time" }}>
         <VictoryLine
           style={{
             data: { stroke: COLORS.accent },
@@ -49,41 +29,11 @@ const BrutalityOverTime = ({ data }) => {
               padding: 30,
             },
           }}
+          domain={[new Date("2020-01"), new Date()]}
         />
         <VictoryAxis
           dependentAxis
           label="Number of Killings"
-          style={{
-            axisLabel: {
-              fontSize: 10,
-              padding: 40,
-            },
-          }}
-        />
-      </VictoryChart>
-      <VictoryChart
-        padding={{ top: 0, left: 50, right: 50, bottom: 0 }}
-        width={width}
-        height={100}
-        scale={{ x: "time" }}
-        containerComponent={
-          <VictoryBrushContainer
-            brushDimension="x"
-            brushDomain={zoomDomain}
-            onBrushDomainChange={setZoomDomain}
-          />
-        }
-      >
-        <VictoryAxis tickFormat={(x) => new Date(x).getFullYear()} />
-        <VictoryLine
-          style={{
-            data: { stroke: COLORS.accent },
-          }}
-          data={transformData(data)}
-        />
-        <VictoryAxis
-          dependentAxis
-          label="# of Killings"
           style={{
             axisLabel: {
               fontSize: 10,

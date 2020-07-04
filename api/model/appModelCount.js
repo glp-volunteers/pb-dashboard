@@ -151,19 +151,18 @@ Count.countAllRecordsByStateCounty = async function (result) {
   );
 };
 
-Count.countAllShootingsByStateCounty = async function (result) {
+Count.countAllShootingsByStateCounty = async function (state, result) {
   const sql = await getDb();
-  sql.query(
-    "Select state, county, count(*) as total from shootings group by state, county order by state, county",
-    function (err, res) {
-      if (err) {
-        console.log("error: ", err);
-        result(err, null);
-      } else {
-        result(null, res);
-      }
+  const where = state ? "where state = ?" : "";
+  let query = `Select state, county, count(*) as total from shootings ${where} group by state, county order by state, county`;
+  sql.query(query, [state], function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
     }
-  );
+  });
 };
 
 Count.countAllBrutalityByStateCounty = async function (result) {
@@ -183,34 +182,32 @@ Count.countAllBrutalityByStateCounty = async function (result) {
 
 //BrutalityOverTime.js query
 
-Count.countAllShootingsOverTime = async function (result) {
+Count.countAllShootingsOverTime = async function (state, result) {
   const sql = await getDb();
-  sql.query(
-    "Select count(date) as 'count', date_format(date, '%Y-%m') as 'month' from shootings where date_format(date, '%Y-%m') != '0000-00' group by date_format(date, '%Y-%m') having count(*) >= 1 order by date asc",
-    function (err, res) {
-      if (err) {
-        console.log("error: ", err);
-        result(err, null);
-      } else {
-        result(null, res);
-      }
+  const where = state ? "and state = ?" : "";
+  const query = `Select count(date) as 'count', state, date_format(date, '%Y-%m') as 'month' from shootings where date_format(date, '%Y-%m') != '0000-00' ${where} group by date_format(date, '%Y-%m') having count(*) >= 1 order by date asc`;
+  sql.query(query, [state], function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
     }
-  );
+  });
 };
 
-Count.countTopPoliceDepartments = async function (result) {
+Count.countTopPoliceDepartments = async function (state, result) {
   const sql = await getDb();
-  sql.query(
-    "Select police_department, state, count(*) as count from shootings group by police_department order by count desc limit 20",
-    function (err, res) {
-      if (err) {
-        console.log("error: ", err);
-        result(err, null);
-      } else {
-        result(null, res);
-      }
+  const where = state ? "where state = ?" : "";
+  const query = `Select police_department, state, count(*) as count from shootings ${where} group by police_department order by count desc limit 20`;
+  sql.query(query, [state], function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
     }
-  );
+  });
 };
 
 export default Count;
