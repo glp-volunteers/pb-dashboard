@@ -1,32 +1,30 @@
 import React from "react";
 
-const style = {
-  maxHeight: "450px",
-  height: "auto",
-  overflow: "hidden scroll",
-};
+import { Box, Paper, Link, List, ListItem } from "@material-ui/core";
 
 const Last20Victims = ({ data }) => {
   return (
-    <div style={style}>
-      <ul>
-        {data.map((item) => {
-          const humanDate = new Date(item.date).toDateString();
-          return (
-            <li key={item.shootingsID}>
-              <b>
-                <a target="_blank" rel="noreferrer" href={item.media_link}>
-                  {item.victim_name}
-                </a>
-              </b>
-              &nbsp;was killed in {item.county} County, {item.state}. Reported
-              on&nbsp;
-              {humanDate}.
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+    <Paper>
+      <Box height="500px" overflow="auto">
+        <List>
+          {data.map((item) => {
+            const humanDate = new Date(item.date).toDateString();
+            return (
+              <ListItem key={item.shootingsID}>
+                <Box>
+                  <Link target="_blank" rel="noreferrer" href={item.media_link}>
+                    {item.victim_name}
+                  </Link>
+                  &nbsp;was killed in {item.county} County, {item.state}.
+                  Reported on&nbsp;
+                  {humanDate}.
+                </Box>
+              </ListItem>
+            );
+          })}
+        </List>
+      </Box>
+    </Paper>
   );
 };
 
