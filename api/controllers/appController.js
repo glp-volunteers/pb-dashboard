@@ -95,6 +95,13 @@ export const count_all_shootings_over_time = function (req, res) {
   });
 };
 
+export const count_top_police_departments = function (req, res) {
+  Count.countTopPoliceDepartments(function (err, count) {
+    if (err) return res.send(err);
+    res.send(count);
+  });
+};
+
 // SHOOTINGS API
 export const list_all_shootings = function (req, res) {
   Shooting.getAllShootings(function (err, shooting) {

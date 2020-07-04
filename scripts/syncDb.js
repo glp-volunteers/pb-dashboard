@@ -73,7 +73,7 @@ const transform = (row) =>
     state: row.State,
     state_code: states[row.State],
     county: row.County,
-    date: new Date(row.Timestamp).toJSON().split("T")[0],
+    date: new Date(row["Date Incident Occurred"]).toJSON().split("T")[0],
     victim_name: `${row["Victim First Name (If not listed, enter Unknown)"]} ${row["Victim Last Name (If not listed, enter Unknown)"]}`,
     officer_name: `${row["Officer First Name (If not listed, enter Unknown)"]} ${row["Officer Last Name (If not listed, enter Unknown)"]}`,
     armed_unarmed: row["Victim Armed"],
@@ -82,6 +82,7 @@ const transform = (row) =>
     alleged_crime: row["Alleged Crime/Reason for Police presence"],
     media_link: row["Link 1"],
     summay: row.Summary,
+    police_department: row["Police Department"],
   });
 
 const query = (connection, ...args) =>
@@ -104,7 +105,7 @@ const connection = mysql.createConnection({
 });
 
 const insertQuery =
-  "INSERT INTO shootings (shootingsID, state, state_code, county, date, victim_name, officer_name, armed_unarmed, cause_of_death, officer_charged, alleged_crime, media_link, summay) VALUES ?";
+  "INSERT INTO shootings (shootingsID, state, state_code, county, date, victim_name, officer_name, armed_unarmed, cause_of_death, officer_charged, alleged_crime, media_link, summay, police_department) VALUES ?";
 
 connection.connect(async function (err) {
   if (err) throw err;

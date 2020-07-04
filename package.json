@@ -5,7 +5,7 @@
 	"scripts": {
 		"dev": "next",
 		"dev-with-db": "export DB_HOST=localhost && export DB_USER=root && next",
-		"build": "next build && node ./scripts/syncDb.js",
+		"build": "next build && db-migrate up -e prod --migrations-dir ./db/migrations/ && node ./scripts/syncDb.js",
 		"start": "next start -p $PORT",
 		"start-dev-db": "./db/start.sh",
 		"stop-dev-db": "./db/stop.sh"
@@ -17,6 +17,8 @@
 		"@material-ui/core": "^4.10.2",
 		"@material-ui/icons": "^4.9.1",
 		"bootstrap": "^4.5.0",
+		"db-migrate": "^0.11.11",
+		"db-migrate-mysql": "^2.1.1",
 		"google-charts": "^2.0.0",
 		"mysql": "^2.18.1",
 		"neat-csv": "^5.2.0",

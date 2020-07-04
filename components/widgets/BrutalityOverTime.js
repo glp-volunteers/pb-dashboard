@@ -6,6 +6,7 @@ import {
   VictoryLine,
   VictoryAxis,
 } from "victory";
+import { useMeasure } from "react-use";
 import { COLORS } from "styles/constants";
 
 function transformData(data) {
@@ -16,14 +17,15 @@ function transformData(data) {
 
 const BrutalityOverTime = ({ data }) => {
   const [zoomDomain, setZoomDomain] = useState({
-    x: [new Date("2019-09"), new Date("2019-12")],
+    x: [new Date("2020-04"), new Date("2020-06")],
   });
+  const [ref, { width }] = useMeasure();
 
   return (
-    <div>
+    <div ref={ref}>
       <VictoryChart
-        width={500}
-        height={470}
+        width={width}
+        height={330}
         scale={{ x: "time" }}
         containerComponent={
           <VictoryZoomContainer
@@ -54,15 +56,15 @@ const BrutalityOverTime = ({ data }) => {
           style={{
             axisLabel: {
               fontSize: 10,
-              padding: 30,
+              padding: 40,
             },
           }}
         />
       </VictoryChart>
       <VictoryChart
-        padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
-        width={500}
-        height={150}
+        padding={{ top: 0, left: 50, right: 50, bottom: 0 }}
+        width={width}
+        height={100}
         scale={{ x: "time" }}
         containerComponent={
           <VictoryBrushContainer
@@ -85,7 +87,7 @@ const BrutalityOverTime = ({ data }) => {
           style={{
             axisLabel: {
               fontSize: 10,
-              padding: 30,
+              padding: 40,
             },
           }}
         />

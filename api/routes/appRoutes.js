@@ -41,6 +41,9 @@ const routes = {
   "/count/shootings/overtime": {
     GET: controller.count_all_shootings_over_time,
   },
+  "/count/shootings/pd": {
+    GET: controller.count_top_police_departments,
+  },
   "/shootings": {
     GET: controller.list_all_shootings,
   },
