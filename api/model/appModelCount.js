@@ -24,8 +24,7 @@ Count.countAllRecords = async function (result) {
 
 Count.countAllShootings = async function (result) {
   const sql = await getDb();
-  sql.query("Select count(*) as total from shootings",
-  function (err, res) {
+  sql.query("Select count(*) as total from shootings", function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -37,8 +36,7 @@ Count.countAllShootings = async function (result) {
 
 Count.countAllBrutality = async function (result) {
   const sql = await getDb();
-  sql.query("Select count(*) as total from brutality",
-  function (err, res) {
+  sql.query("Select count(*) as total from brutality", function (err, res) {
     if (err) {
       console.log("error: ", err);
       result(err, null);
@@ -187,7 +185,8 @@ Count.countAllBrutalityByStateCounty = async function (result) {
 
 Count.countAllShootingsOverTime = async function (result) {
   const sql = await getDb();
-  sql.query("Select count(date) as 'count', date_format(date, '%Y-%m') as 'month' from shootings where date_format(date, '%Y-%m') != '0000-00' group by date_format(date, '%Y-%m') having count(*) >= 1 order by date asc",
+  sql.query(
+    "Select count(date) as 'count', date_format(date, '%Y-%m') as 'month' from shootings where date_format(date, '%Y-%m') != '0000-00' group by date_format(date, '%Y-%m') having count(*) >= 1 order by date asc",
     function (err, res) {
       if (err) {
         console.log("error: ", err);
@@ -199,5 +198,19 @@ Count.countAllShootingsOverTime = async function (result) {
   );
 };
 
+Count.countTopPoliceDepartments = async function (result) {
+  const sql = await getDb();
+  sql.query(
+    "Select police_department, state, count(*) as count from shootings group by police_department order by count desc limit 20",
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
 
 export default Count;
