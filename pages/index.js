@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Container, Col, Row, Form, Badge } from "react-bootstrap";
+// import { Container, Col, Row, Form, Badge } from "react-bootstrap";
+
+import {
+  Box,
+  Chip,
+  Container,
+  Grid,
+  Switch,
+  Typography,
+} from "@material-ui/core";
+
 import Head from "pages/head";
 import BrutalityByState from "components/widgets/BrutalityByState";
 import BrutalityOverTime from "components/widgets/BrutalityOverTime";
@@ -92,78 +102,81 @@ function Dashboard({
   setIsPerCapita,
 }) {
   return (
-    <Container>
+    <>
       <Head />
-      <Row>
-        <Col sm="auto">
-          <h1>Police Killings in 2020</h1>
-        </Col>
-        <Col sm="auto" style={filterColumnStyle}>
-          {selectedState ? (
-            <Badge
-              pill
-              variant="info"
-              style={{ verticalAlign: "bottom", fontSize: 18 }}
-            >
-              {selectedState}{" "}
-              <CloseIcon
-                fontSize="inherit"
-                onClick={() => setSelectedState(null)}
+      <Container>
+        <Grid container spacing={4}>
+          <Grid item sm={12}>
+            <h1>Police Killings in 2020</h1>
+          </Grid>
+
+          <Grid item sm={12} md={8}>
+            <Box display={["block", "flex"]}>
+              <h2>Police Killings by State</h2>
+              {selectedState ? (
+                <Chip
+                  pill
+                  variant="info"
+                  style={{ verticalAlign: "bottom", fontSize: 18 }}
+                >
+                  {selectedState}{" "}
+                  <CloseIcon
+                    fontSize="inherit"
+                    onClick={() => setSelectedState(null)}
+                  />
+                </Chip>
+              ) : (
+                <Box
+                  alignItems="center"
+                  component="label"
+                  display="inline-flex"
+                  ml={3}
+                  pr={2}
+                >
+                  <Switch
+                    onChange={(val) => {
+                      setIsPerCapita(val.target.checked);
+                    }}
+                  />
+                  <Typography component="span">Per Capita</Typography>
+                </Box>
+              )}
+
+              <BrutalityMap
+                data={shootingsByState}
+                selectState={setSelectedState}
+                selectedState={selectedState}
               />
-            </Badge>
-          ) : (
-            <Form.Check
-              type="switch"
-              id="custom-switch"
-              label="Per Capita"
-              onChange={(val) => {
-                setIsPerCapita(val.target.checked);
-              }}
+            </Box>
+          </Grid>
+          <Grid item sm={12} md={4}>
+            <h2>Recent Police Killings</h2>
+            <Last20Victims data={last20Items} />
+          </Grid>
+
+          <Grid item sm={12} md={8}>
+            <h2>Police Killings by {selectedState ? "County" : "State"}</h2>
+            <BrutalityByState
+              data={shootingsByGeo}
+              x={selectedState ? "county" : "state"}
             />
-          )}
-        </Col>
-      </Row>
-      <Row style={rowStyle}>
-        <Col lg={8}>
-          <h2>Police Killings by State</h2>
-          <Row>
-            <Col></Col>
-          </Row>
-          <BrutalityMap
-            data={shootingsByState}
-            selectState={setSelectedState}
-            selectedState={selectedState}
-          />
-        </Col>
-        <Col lg={4}>
-          <h2>Recent Police Killings</h2>
-          <Last20Victims data={last20Items} />
-        </Col>
-      </Row>
-      <Row style={rowStyle}>
-        <Col lg={8}>
-          <h2>Police Killings by {selectedState ? "County" : "State"}</h2>
-          <BrutalityByState
-            data={shootingsByGeo}
-            x={selectedState ? "county" : "state"}
-          />
-        </Col>
-        <Col lg={4}>
-          <h2>Police Departments with the Most Killings</h2>
-          <TopPoliceDepartments data={topPoliceDepartments} />
-        </Col>
-      </Row>
-      <Row style={rowStyle}>
-        <Col lg={8}>
-          <h2>Police Killings Over Time</h2>
-          <BrutalityOverTime data={shootingsOverTime} />
-        </Col>
-        <Col lg={4}>
-          <h2>By the Numbers</h2>
-          <EnhancedTable />
-        </Col>
-      </Row>
-    </Container>
+          </Grid>
+          <Grid item sm={12} md={4}>
+            <h2>Police Departments with the Most Killings</h2>
+            <TopPoliceDepartments data={topPoliceDepartments} />
+          </Grid>
+
+          <Grid sm={12} md={6}>
+            <h2>Police Killings Over Time</h2>
+            <BrutalityOverTime data={shootingsOverTime} />
+          </Grid>
+          <Grid sm={12} md={6}>
+            <h2>By the Numbers</h2>
+            <EnhancedTable />
+          </Grid>
+        </Grid>
+      </Container>
+    </>
   );
 }
 
