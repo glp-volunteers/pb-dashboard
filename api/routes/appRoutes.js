@@ -32,6 +32,9 @@ const routes = {
   "/count/statecounty": {
     GET: controller.count_all_records_by_state_county,
   },
+  "/count/shootings/statecounty/:state": {
+    GET: controller.count_all_shootings_by_state_county,
+  },
   "/count/shootings/statecounty": {
     GET: controller.count_all_shootings_by_state_county,
   },
@@ -41,7 +44,13 @@ const routes = {
   "/count/shootings/overtime": {
     GET: controller.count_all_shootings_over_time,
   },
+  "/count/shootings/overtime/:state": {
+    GET: controller.count_all_shootings_over_time,
+  },
   "/count/shootings/pd": {
+    GET: controller.count_top_police_departments,
+  },
+  "/count/shootings/pd/:state": {
     GET: controller.count_top_police_departments,
   },
   "/shootings": {
@@ -54,6 +63,9 @@ const routes = {
     GET: controller.list_all_shootings_for_state,
   },
   "/shootings/last20": {
+    GET: controller.list_last_shootings,
+  },
+  "/shootings/last20/:state": {
     GET: controller.list_last_shootings,
   },
   "/shootings/:shootingId1-:shootingId2": {

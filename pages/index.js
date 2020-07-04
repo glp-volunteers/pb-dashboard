@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Container, Col, Row, Form } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Col, Row, Form, Badge } from "react-bootstrap";
 import Head from "pages/head";
 import BrutalityByState from "components/widgets/BrutalityByState";
 import BrutalityOverTime from "components/widgets/BrutalityOverTime";
@@ -7,31 +7,37 @@ import BrutalityMap from "components/widgets/BrutalityMap";
 import EnhancedTable from "components/widgets/TableData";
 import Last20Victims from "components/widgets/Last20Victims";
 import TopPoliceDepartments from "components/widgets/TopPoliceDepartments";
-import { getApiData } from "api/routes/appRoutes";
+import CloseIcon from "@material-ui/icons/Close";
 
 const rowStyle = {
   marginBottom: 20,
 };
 
-export const getServerSideProps = async () => {
-  const shootingsByState = await getApiData("count/shootings/state/name");
+const filterColumnStyle = { display: "flex", alignItems: "center" };
 
+const universalAPIFetch = async (url) => {
+  if (!process.browser) {
+    const { getApiData } = require("api/routes/appRoutes");
+    return getApiData(url);
+  }
+  const rawData = await fetch(`/api/${url}`);
+  return rawData.json();
+};
+
+const getNationalData = async () => {
+  const shootingsByState = await universalAPIFetch(
+    "count/shootings/state/name"
+  );
   const populationDataRaw = await fetch(
     "https://datausa.io/api/data?drilldowns=State&measures=Population&year=latest"
   );
-
-  const shootingsOverTime = await getApiData("count/shootings/overtime");
-
-  const last20Items = await getApiData("shootings/last20");
-
-  const topPoliceDepartments = await getApiData("count/shootings/pd");
-
+  const shootingsOverTime = await universalAPIFetch("count/shootings/overtime");
+  const last20Items = await universalAPIFetch("shootings/last20");
+  const topPoliceDepartments = await universalAPIFetch("count/shootings/pd");
   const populationData = await populationDataRaw.json();
-
   const filteredShootingsByState = shootingsByState.filter((state) =>
     populationData.data.find((s) => s.State === state.state)
   );
-
   const shootingsPerCapita = filteredShootingsByState.map((state) => ({
     ...state,
     total:
@@ -50,6 +56,115 @@ export const getServerSideProps = async () => {
   };
 };
 
+const getStateData = async (state) => {
+  const shootingsByCounty = await universalAPIFetch(
+    `count/shootings/statecounty/${state}`
+  );
+  const shootingsOverTime = await universalAPIFetch(
+    `count/shootings/overtime/${state}`
+  );
+  const last20Items = await universalAPIFetch(`shootings/last20/${state}`);
+  const topPoliceDepartments = await universalAPIFetch(
+    `count/shootings/pd/${state}`
+  );
+
+  return {
+    shootingsByCounty,
+    shootingsOverTime,
+    topPoliceDepartments,
+    last20Items,
+  };
+};
+
+export const getServerSideProps = async () => {
+  const nationalData = await getNationalData();
+  return nationalData;
+};
+
+function Dashboard({
+  shootingsByState,
+  shootingsByGeo,
+  shootingsOverTime,
+  topPoliceDepartments,
+  last20Items,
+  selectedState,
+  setSelectedState,
+  setIsPerCapita,
+}) {
+  return (
+    <Container>
+      <Head />
+      <Row>
+        <Col sm="auto">
+          <h2>Police Killings in 2020</h2>
+        </Col>
+        <Col sm="auto" style={filterColumnStyle}>
+          {selectedState ? (
+            <h4>
+              <Badge pill variant="info" style={{ verticalAlign: "bottom" }}>
+                {selectedState}{" "}
+                <CloseIcon
+                  fontSize="inherit"
+                  onClick={() => setSelectedState(null)}
+                />
+              </Badge>
+            </h4>
+          ) : (
+            <Form.Check
+              type="switch"
+              id="custom-switch"
+              label="Per Capita"
+              onChange={(val) => {
+                setIsPerCapita(val.target.checked);
+              }}
+            />
+          )}
+        </Col>
+      </Row>
+      <Row style={rowStyle}>
+        <Col lg={8}>
+          <h3>Police Killings by State</h3>
+          <Row>
+            <Col></Col>
+          </Row>
+          <BrutalityMap
+            data={shootingsByState}
+            selectState={setSelectedState}
+            selectedState={selectedState}
+          />
+        </Col>
+        <Col lg={4}>
+          <h3>Recent Police Killings</h3>
+          <Last20Victims data={last20Items} />
+        </Col>
+      </Row>
+      <Row style={rowStyle}>
+        <Col lg={8}>
+          <h3>Police Killings by {selectedState ? "County" : "State"}</h3>
+          <BrutalityByState
+            data={shootingsByGeo}
+            x={selectedState ? "county" : "state"}
+          />
+        </Col>
+        <Col lg={4}>
+          <h3>Police Departments with the Most Killings</h3>
+          <TopPoliceDepartments data={topPoliceDepartments} />
+        </Col>
+      </Row>
+      <Row style={rowStyle}>
+        <Col lg={8}>
+          <h3>Police Killings Over Time</h3>
+          <BrutalityOverTime data={shootingsOverTime} />
+        </Col>
+        <Col lg={4}>
+          <h3>By the Numbers</h3>
+          <EnhancedTable />
+        </Col>
+      </Row>
+    </Container>
+  );
+}
+
 function HomePage({
   shootingsByState,
   shootingsPerCapita,
@@ -58,53 +173,41 @@ function HomePage({
   last20Items,
 }) {
   const [isPerCapita, setIsPerCapita] = useState(false);
+  const [selectedState, setSelectedState] = useState(null);
+  const [stateData, setStateData] = useState({
+    shootingsByCounty: [],
+    shootingsOverTime: [],
+    topPoliceDepartments: [],
+    last20Items: [],
+  });
+
+  useEffect(() => {
+    if (selectedState) {
+      getStateData(selectedState).then(setStateData);
+    }
+  }, [selectedState, setStateData]);
+
+  const byState = isPerCapita ? shootingsPerCapita : shootingsByState;
+  const byGeo = selectedState ? stateData.shootingsByCounty : byState;
+  const overTime = selectedState
+    ? stateData.shootingsOverTime
+    : shootingsOverTime;
+  const policeDepartments = selectedState
+    ? stateData.topPoliceDepartments
+    : topPoliceDepartments;
+  const last20 = selectedState ? stateData.last20Items : last20Items;
 
   return (
-    <Container>
-      <Head />
-      <Row style={rowStyle}>
-        <Col lg={8}>
-          <h2>Police Killings by State</h2>
-          <Form.Check
-            type="switch"
-            id="custom-switch"
-            label="Per Capita"
-            onChange={(val) => {
-              setIsPerCapita(val.target.checked);
-            }}
-          />
-          <BrutalityMap
-            data={isPerCapita ? shootingsPerCapita : shootingsByState}
-          />
-        </Col>
-        <Col lg={4}>
-          <h2>Recent Police Killings</h2>
-          <Last20Victims data={last20Items} />
-        </Col>
-      </Row>
-      <Row style={rowStyle}>
-        <Col lg={8}>
-          <h2>Police Killings by State</h2>
-          <BrutalityByState
-            data={isPerCapita ? shootingsPerCapita : shootingsByState}
-          />
-        </Col>
-        <Col lg={4}>
-          <h2>Police Departments with the Most Killings</h2>
-          <TopPoliceDepartments data={topPoliceDepartments} />
-        </Col>
-      </Row>
-      <Row style={rowStyle}>
-        <Col lg={8}>
-          <h2>Highest Number of Killings by Police Department</h2>
-          <BrutalityOverTime data={shootingsOverTime} />
-        </Col>
-        <Col lg={4}>
-          <h2>By the Numbers</h2>
-          <EnhancedTable />
-        </Col>
-      </Row>
-    </Container>
+    <Dashboard
+      shootingsByState={byState}
+      shootingsByGeo={byGeo}
+      shootingsOverTime={overTime}
+      topPoliceDepartments={policeDepartments}
+      last20Items={last20}
+      selectedState={selectedState}
+      setSelectedState={setSelectedState}
+      setIsPerCapita={setIsPerCapita}
+    />
   );
 }
 
