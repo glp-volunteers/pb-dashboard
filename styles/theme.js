@@ -32,13 +32,6 @@ const theme = createMuiTheme({
       inverted: COLORS.white,
     },
   },
-  overrides: {
-    MuiToolbar: {
-      dense: {
-        "min-height": "0",
-      },
-    },
-  },
 });
 
 export default theme;
