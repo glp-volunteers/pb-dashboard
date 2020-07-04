@@ -96,19 +96,21 @@ function Dashboard({
       <Head />
       <Row>
         <Col sm="auto">
-          <h2>Police Killings in 2020</h2>
+          <h1>Police Killings in 2020</h1>
         </Col>
         <Col sm="auto" style={filterColumnStyle}>
           {selectedState ? (
-            <h4>
-              <Badge pill variant="info" style={{ verticalAlign: "bottom" }}>
-                {selectedState}{" "}
-                <CloseIcon
-                  fontSize="inherit"
-                  onClick={() => setSelectedState(null)}
-                />
-              </Badge>
-            </h4>
+            <Badge
+              pill
+              variant="info"
+              style={{ verticalAlign: "bottom", fontSize: 18 }}
+            >
+              {selectedState}{" "}
+              <CloseIcon
+                fontSize="inherit"
+                onClick={() => setSelectedState(null)}
+              />
+            </Badge>
           ) : (
             <Form.Check
               type="switch"
@@ -123,7 +125,7 @@ function Dashboard({
       </Row>
       <Row style={rowStyle}>
         <Col lg={8}>
-          <h3>Police Killings by State</h3>
+          <h2>Police Killings by State</h2>
           <Row>
             <Col></Col>
           </Row>
@@ -134,30 +136,30 @@ function Dashboard({
           />
         </Col>
         <Col lg={4}>
-          <h3>Recent Police Killings</h3>
+          <h2>Recent Police Killings</h2>
           <Last20Victims data={last20Items} />
         </Col>
       </Row>
       <Row style={rowStyle}>
         <Col lg={8}>
-          <h3>Police Killings by {selectedState ? "County" : "State"}</h3>
+          <h2>Police Killings by {selectedState ? "County" : "State"}</h2>
           <BrutalityByState
             data={shootingsByGeo}
             x={selectedState ? "county" : "state"}
           />
         </Col>
         <Col lg={4}>
-          <h3>Police Departments with the Most Killings</h3>
+          <h2>Police Departments with the Most Killings</h2>
           <TopPoliceDepartments data={topPoliceDepartments} />
         </Col>
       </Row>
       <Row style={rowStyle}>
         <Col lg={8}>
-          <h3>Police Killings Over Time</h3>
+          <h2>Police Killings Over Time</h2>
           <BrutalityOverTime data={shootingsOverTime} />
         </Col>
         <Col lg={4}>
-          <h3>By the Numbers</h3>
+          <h2>By the Numbers</h2>
           <EnhancedTable />
         </Col>
       </Row>
