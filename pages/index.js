@@ -42,7 +42,8 @@ const getNationalData = async () => {
     ...state,
     total:
       state.total /
-      populationData.data.find((s) => s.State === state.state).Population,
+      (populationData.data.find((s) => s.State === state.state).Population /
+        1000000),
   }));
 
   return {
@@ -90,6 +91,7 @@ function Dashboard({
   selectedState,
   setSelectedState,
   setIsPerCapita,
+  isPerCapita,
 }) {
   return (
     <Container>
@@ -133,6 +135,7 @@ function Dashboard({
             data={shootingsByState}
             selectState={setSelectedState}
             selectedState={selectedState}
+            isPerCapita={isPerCapita}
           />
         </Col>
         <Col lg={4}>
@@ -146,6 +149,7 @@ function Dashboard({
           <BrutalityByState
             data={shootingsByGeo}
             x={selectedState ? "county" : "state"}
+            isPerCapita={isPerCapita}
           />
         </Col>
         <Col lg={4}>
@@ -207,8 +211,12 @@ function HomePage({
       topPoliceDepartments={policeDepartments}
       last20Items={last20}
       selectedState={selectedState}
-      setSelectedState={setSelectedState}
+      setSelectedState={(state) => {
+        setSelectedState(state);
+        setIsPerCapita(false);
+      }}
       setIsPerCapita={setIsPerCapita}
+      isPerCapita={isPerCapita}
     />
   );
 }
