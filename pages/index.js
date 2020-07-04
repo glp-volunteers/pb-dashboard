@@ -90,13 +90,13 @@ function HomePage({
           />
         </Col>
         <Col lg={4}>
-          <h2>Top Police Departments</h2>
+          <h2>Police Departments with the Most Killings</h2>
           <TopPoliceDepartments data={topPoliceDepartments} />
         </Col>
       </Row>
       <Row style={rowStyle}>
         <Col lg={8}>
-          <h2>Police Killings Over Time</h2>
+          <h2>Highest Number of Killings by Police Department</h2>
           <BrutalityOverTime data={shootingsOverTime} />
         </Col>
         <Col lg={4}>

@@ -23,7 +23,7 @@ function Head() {
             </a>{" "}
             collects information on police violence across the United States.
             This data is critical to identifying the national pattern of police
-            brutality. This page provides a view into our database.
+            brutality. This page provides a view into our database, which covers police killings for <b>2020 onward. </b>
           </p>
         </Col>
       </Row>
