@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@material-ui/core";
 
+import Footer from "pages/footer";
 import Head from "pages/head";
 import BrutalityByState from "components/widgets/BrutalityByState";
 import BrutalityOverTime from "components/widgets/BrutalityOverTime";
@@ -18,12 +19,6 @@ import EnhancedTable from "components/widgets/TableData";
 import Last20Victims from "components/widgets/Last20Victims";
 import TopPoliceDepartments from "components/widgets/TopPoliceDepartments";
 import CloseIcon from "@material-ui/icons/Close";
-
-const rowStyle = {
-  marginBottom: 20,
-};
-
-const filterColumnStyle = { display: "flex", alignItems: "center" };
 
 const universalAPIFetch = async (url) => {
   if (!process.browser) {
@@ -176,6 +171,7 @@ function Dashboard({
           </Grid>
         </Grid>
       </Container>
+      <Footer />
     </>
   );
 }
