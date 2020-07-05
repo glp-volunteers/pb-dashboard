@@ -4,7 +4,7 @@ import { useMeasure } from "react-use";
 
 import { COLORS } from "styles/constants";
 
-const BrutalityByState = ({ data, x = "state" }) => {
+const BrutalityByState = ({ data, x = "state", isPerCapita }) => {
   const [ref, { width }] = useMeasure();
   const sortedData = useMemo(
     () =>
@@ -23,7 +23,10 @@ const BrutalityByState = ({ data, x = "state" }) => {
         height={1000}
       >
         <VictoryAxis style={{ tickLabels: { angle: -30 } }} />
-        <VictoryAxis dependentAxis />
+        <VictoryAxis
+          dependentAxis
+          label={isPerCapita ? "Killings Per 1 million Residents" : "Killings"}
+        />
         <VictoryBar
           barWidth={barWidth}
           style={{
