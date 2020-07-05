@@ -1,51 +1,90 @@
 import React from "react";
-import Link from "next/link";
-import { Button, Container, Col, Row, Navbar, Nav } from "react-bootstrap";
+import { Link as NextLink } from "next/link";
 
-import { container, brand, nav, button } from "styles/head";
+import { Box, Button, Container, Link, Typography } from "@material-ui/core";
 
 function Head() {
+  const topWhitespace = "-0.3em"; // lineheight of font; lets top of text line up with logo image top
+
   return (
-    <Container style={container}>
-      <Row>
-        <Col>
-          <img
-            alt="Grassroots Law Project"
-            width={261}
-            height={60}
-            src="https://images.squarespace-cdn.com/content/5e7662fe45630059ae9347cf/1591116153336-2V6MDHUQAXMOIKOZI6DJ/glp+text+only+logo+neon.png?format=1500w&content-type=image%2Fpng"
-          />
-        </Col>
-        <Col className="d-none d-md-block">
-          <p>
-            <a href="https://www.grassrootslaw.org/" style={nav}>
-              Grassroots Law Project
-            </a>{" "}
-            collects information on police violence across the United States.
-            This data is critical to identifying the national pattern of police
-            brutality. This page provides a view into our database, which covers police killings for <b>2020 onward. </b>
-          </p>
-        </Col>
-      </Row>
-      <Nav>
-        <Navbar.Brand style={brand} href="/">
-          Police Killings Dashboard
-        </Navbar.Brand>
-        <Nav.Link style={nav} href="/">
-          Home
-        </Nav.Link>
-        <Nav.Link style={nav} href="/methodology">
-          Our Methodology
-        </Nav.Link>
-        <Button
-          style={button}
-          variant="link"
-          href="https://secure.actblue.com/donate/glp-homepage?refcode=homepage_nav"
+    <Box color="text.inverted" bgcolor="background.dark" pb={2} pt={4}>
+      <Container maxWidth="lg">
+        <Box
+          display="flex"
+          flexDirection={["column", "row"]}
+          justifyContent="space-between"
+          mb={3}
+          px="1rem" // will match value in padded nav elements
         >
-          Donate
-        </Button>
-      </Nav>
-    </Container>
+          <Box width={[180, 261]}>
+            <img
+              alt="Grassroots Law Project"
+              display="block"
+              height="auto"
+              width="261"
+              style={{ maxWidth: "100%" }}
+              src="https://images.squarespace-cdn.com/content/5e7662fe45630059ae9347cf/1591116153336-2V6MDHUQAXMOIKOZI6DJ/glp+text+only+logo+neon.png?format=1500w&content-type=image%2Fpng"
+            />
+          </Box>
+          <Box maxWidth="500px" ml={[0, 6]} mt={[3, topWhitespace]}>
+            <Typography variant="body1">
+              <Link color="inherit" href="https://www.grassrootslaw.org/">
+                Grassroots Law Project
+              </Link>{" "}
+              collects information on police violence across the United States.
+              This data is critical to identifying the national pattern of
+              police brutality. This page provides a view into our database,
+              which covers police killings for <b>2020 onward. </b>
+            </Typography>
+          </Box>
+        </Box>
+        <Box display="flex" flexDirection="row" flexWrap={["wrap", "none"]}>
+          <Link
+            align="center"
+            color="inherit"
+            component={NextLink}
+            display="block"
+            href="/"
+            variant="body1"
+          >
+            <Box color="secondary.main" px={2} py={1}>
+              Police Killings Dashboard
+            </Box>
+          </Link>
+          <Link
+            align="center"
+            color="inherit"
+            component={NextLink}
+            display="block"
+            href="/"
+            variant="body1"
+          >
+            <Box px={2} py={1}>
+              Home
+            </Box>
+          </Link>
+          <Link
+            align="center"
+            color="inherit"
+            component={NextLink}
+            display="block"
+            href="/methodology"
+            variant="body1"
+          >
+            <Box px={2} py={1}>
+              Our Methodology
+            </Box>
+          </Link>
+          <Button
+            ml={2}
+            variant="outlinedSecondary"
+            href="https://secure.actblue.com/donate/glp-homepage?refcode=homepage_nav"
+          >
+            Donate
+          </Button>
+        </Box>
+      </Container>
+    </Box>
   );
 }
 
