@@ -101,73 +101,92 @@ function Dashboard({
       <Head />
       <Container>
         <Grid container spacing={4}>
-          <Grid item sm={12}>
-            <h1>Police Killings in 2020</h1>
+          <Grid item xs={12}>
+            <Box pt={4} pb={2}>
+              <Typography variant="h1">Police Killings in 2020</Typography>
+            </Box>
           </Grid>
 
-          <Grid item sm={12} md={8}>
-            <Box display={["block", "flex"]}>
-              <h2>Police Killings by State</h2>
-              {selectedState ? (
-                <Chip
-                  pill
-                  variant="info"
-                  style={{ verticalAlign: "bottom", fontSize: 18 }}
-                >
-                  {selectedState}{" "}
-                  <CloseIcon
-                    fontSize="inherit"
-                    onClick={() => setSelectedState(null)}
+          <Grid item xs={12} md={8}>
+            <Box display={["block", "flex"]} alignItems="center" pb={3}>
+              <Typography mb={3} variant="h2">
+                Police Killings by State
+              </Typography>
+              <Box alignItems="center" display="inline-flex" ml={3}>
+                {selectedState ? (
+                  <Chip
+                    color="primary"
+                    label={selectedState}
+                    onDelete={() => setSelectedState(null)}
+                    // style={{ verticalAlign: "bottom", fontSize: 18 }}
                   />
-                </Chip>
-              ) : (
-                <Box
-                  alignItems="center"
-                  component="label"
-                  display="inline-flex"
-                  ml={3}
-                  pr={2}
-                >
-                  <Switch
-                    onChange={(val) => {
-                      setIsPerCapita(val.target.checked);
-                    }}
-                  />
-                  <Typography component="span">Per Capita</Typography>
-                </Box>
-              )}
+                ) : (
+                  <Box
+                    alignItems="center"
+                    component="label"
+                    display="inline-flex"
+                    pr={2}
+                  >
+                    <Switch
+                      onChange={(val) => {
+                        setIsPerCapita(val.target.checked);
+                      }}
+                    />
+                    <Typography component="span">Per Capita</Typography>
+                  </Box>
+                )}
+              </Box>
+            </Box>
+            <BrutalityMap
+              data={shootingsByState}
+              selectState={setSelectedState}
+              selectedState={selectedState}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Typography mb={3} variant="h2">
+              Recent Police Killings
+            </Typography>
+            <Box mt={3}>
+              <Last20Victims data={last20Items} />
+            </Box>
+          </Grid>
 
-              <BrutalityMap
-                data={shootingsByState}
-                selectState={setSelectedState}
-                selectedState={selectedState}
+          <Grid item xs={12} md={8}>
+            <Typography mb={3} variant="h2">
+              Police Killings by {selectedState ? "County" : "State"}
+            </Typography>
+            <Box mt={3}>
+              <BrutalityByState
+                data={shootingsByGeo}
+                x={selectedState ? "county" : "state"}
               />
             </Box>
           </Grid>
-          <Grid item sm={12} md={4}>
-            <h2>Recent Police Killings</h2>
-            <Last20Victims data={last20Items} />
+          <Grid item xs={12} md={4}>
+            <Typography mb={3} variant="h2">
+              Police Departments with the Most Killings
+            </Typography>
+            <Box mt={3}>
+              <TopPoliceDepartments data={topPoliceDepartments} />
+            </Box>
           </Grid>
 
-          <Grid item sm={12} md={8}>
-            <h2>Police Killings by {selectedState ? "County" : "State"}</h2>
-            <BrutalityByState
-              data={shootingsByGeo}
-              x={selectedState ? "county" : "state"}
-            />
+          <Grid item xs={12} md={6}>
+            <Typography mb={3} variant="h2">
+              Police Killings Over Time
+            </Typography>
+            <Box mt={3}>
+              <BrutalityOverTime data={shootingsOverTime} />
+            </Box>
           </Grid>
-          <Grid item sm={12} md={4}>
-            <h2>Police Departments with the Most Killings</h2>
-            <TopPoliceDepartments data={topPoliceDepartments} />
-          </Grid>
-
-          <Grid sm={12} md={6}>
-            <h2>Police Killings Over Time</h2>
-            <BrutalityOverTime data={shootingsOverTime} />
-          </Grid>
-          <Grid sm={12} md={6}>
-            <h2>By the Numbers</h2>
-            <EnhancedTable />
+          <Grid item xs={12} md={6}>
+            <Typography mb={3} variant="h2">
+              By the Numbers
+            </Typography>
+            <Box mt={3}>
+              <EnhancedTable />
+            </Box>
           </Grid>
         </Grid>
       </Container>

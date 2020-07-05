@@ -32,6 +32,20 @@ const theme = createMuiTheme({
       inverted: COLORS.white,
     },
   },
+  typography: {
+    h1: {
+      fontSize: "1.8rem",
+      fontWeight: 300,
+    },
+    h2: {
+      fontSize: "1.5rem",
+      fontWeight: 300,
+    },
+    h3: {
+      fontSize: "1.25rem",
+      fontWeight: 600,
+    },
+  },
 });
 
 export default theme;

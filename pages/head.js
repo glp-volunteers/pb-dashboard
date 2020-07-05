@@ -16,12 +16,13 @@ function Head() {
           mb={3}
           px="1rem" // will match value in padded nav elements
         >
-          <Box>
+          <Box width={[180, 261]}>
             <img
               alt="Grassroots Law Project"
               display="block"
               height="auto"
-              width={[180, 261]}
+              width="261"
+              style={{ maxWidth: "100%" }}
               src="https://images.squarespace-cdn.com/content/5e7662fe45630059ae9347cf/1591116153336-2V6MDHUQAXMOIKOZI6DJ/glp+text+only+logo+neon.png?format=1500w&content-type=image%2Fpng"
             />
           </Box>
