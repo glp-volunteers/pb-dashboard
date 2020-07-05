@@ -1,25 +1,23 @@
 import React from "react";
 
-const style = {
-  maxHeight: "1000px",
-  height: "auto",
-  overflow: "hidden scroll",
-};
+import { Box, Paper, List, ListItem } from "@material-ui/core";
 
 const TopPoliceDepartments = ({ data }) => {
   return (
-    <div style={style}>
-      <ul>
+    <Paper>
+      <List>
         {data.map((item) => {
           return (
-            <li key={item.police_department}>
-              <b>{item.police_department}</b> in {item.state} killed{" "}
-              {item.count} people.
-            </li>
+            <ListItem display="block" key={item.police_department}>
+              <Box>
+                <b>{item.police_department}</b>
+                &nbsp;in {item.state} killed {item.count} people.
+              </Box>
+            </ListItem>
           );
         })}
-      </ul>
-    </div>
+      </List>
+    </Paper>
   );
 };
 

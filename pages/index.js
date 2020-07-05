@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Container, Col, Row, Form, Badge } from "react-bootstrap";
+// import { Container, Col, Row, Form, Badge } from "react-bootstrap";
+
+import {
+  Box,
+  Chip,
+  Container,
+  Grid,
+  Switch,
+  Typography,
+} from "@material-ui/core";
+
+import Footer from "pages/footer";
 import Head from "pages/head";
 import BrutalityByState from "components/widgets/BrutalityByState";
 import BrutalityOverTime from "components/widgets/BrutalityOverTime";
@@ -8,12 +19,6 @@ import EnhancedTable from "components/widgets/TableData";
 import Last20Victims from "components/widgets/Last20Victims";
 import TopPoliceDepartments from "components/widgets/TopPoliceDepartments";
 import CloseIcon from "@material-ui/icons/Close";
-
-const rowStyle = {
-  marginBottom: 20,
-};
-
-const filterColumnStyle = { display: "flex", alignItems: "center" };
 
 const universalAPIFetch = async (url) => {
   if (!process.browser) {
@@ -94,80 +99,102 @@ function Dashboard({
   isPerCapita,
 }) {
   return (
-    <Container>
+    <>
       <Head />
-      <Row>
-        <Col sm="auto">
-          <h1>Police Killings in 2020</h1>
-        </Col>
-        <Col sm="auto" style={filterColumnStyle}>
-          {selectedState ? (
-            <Badge
-              pill
-              variant="info"
-              style={{ verticalAlign: "bottom", fontSize: 18 }}
-            >
-              {selectedState}{" "}
-              <CloseIcon
-                fontSize="inherit"
-                onClick={() => setSelectedState(null)}
-              />
-            </Badge>
-          ) : (
-            <Form.Check
-              type="switch"
-              id="custom-switch"
-              label="Per Capita"
-              onChange={(val) => {
-                setIsPerCapita(val.target.checked);
-              }}
+      <Container>
+        <Grid container spacing={4}>
+          <Grid item xs={12}>
+            <Box pt={4} pb={2}>
+              <Typography variant="h1">Police Killings in 2020</Typography>
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} md={8}>
+            <Box display={["block", "flex"]} alignItems="center" pb={3}>
+              <Typography mb={3} variant="h2">
+                Police Killings by State
+              </Typography>
+              <Box alignItems="center" display="inline-flex" ml={3}>
+                {selectedState ? (
+                  <Chip
+                    color="primary"
+                    label={selectedState}
+                    onDelete={() => setSelectedState(null)}
+                    // style={{ verticalAlign: "bottom", fontSize: 18 }}
+                  />
+                ) : (
+                  <Box
+                    alignItems="center"
+                    component="label"
+                    display="inline-flex"
+                    pr={2}
+                  >
+                    <Switch
+                      onChange={(val) => {
+                        setIsPerCapita(val.target.checked);
+                      }}
+                    />
+                    <Typography component="span">Per Capita</Typography>
+                  </Box>
+                )}
+              </Box>
+            </Box>
+            <BrutalityMap
+              data={shootingsByState}
+              selectState={setSelectedState}
+              selectedState={selectedState}
             />
-          )}
-        </Col>
-      </Row>
-      <Row style={rowStyle}>
-        <Col lg={8}>
-          <h2>Police Killings by State</h2>
-          <Row>
-            <Col></Col>
-          </Row>
-          <BrutalityMap
-            data={shootingsByState}
-            selectState={setSelectedState}
-            selectedState={selectedState}
-            isPerCapita={isPerCapita}
-          />
-        </Col>
-        <Col lg={4}>
-          <h2>Recent Police Killings</h2>
-          <Last20Victims data={last20Items} />
-        </Col>
-      </Row>
-      <Row style={rowStyle}>
-        <Col lg={8}>
-          <h2>Police Killings by {selectedState ? "County" : "State"}</h2>
-          <BrutalityByState
-            data={shootingsByGeo}
-            x={selectedState ? "county" : "state"}
-            isPerCapita={isPerCapita}
-          />
-        </Col>
-        <Col lg={4}>
-          <h2>Police Departments with the Most Killings</h2>
-          <TopPoliceDepartments data={topPoliceDepartments} />
-        </Col>
-      </Row>
-      <Row style={rowStyle}>
-        <Col lg={8}>
-          <h2>Police Killings Over Time</h2>
-          <BrutalityOverTime data={shootingsOverTime} />
-        </Col>
-        <Col lg={4}>
-          <h2>By the Numbers</h2>
-          <EnhancedTable />
-        </Col>
-      </Row>
-    </Container>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Typography mb={3} variant="h2">
+              Recent Police Killings
+            </Typography>
+            <Box mt={3}>
+              <Last20Victims data={last20Items} />
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} md={8}>
+            <Typography mb={3} variant="h2">
+              Police Killings by {selectedState ? "County" : "State"}
+            </Typography>
+            <Box mt={3}>
+              <BrutalityByState
+                data={shootingsByGeo}
+                x={selectedState ? "county" : "state"}
+              />
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <Typography mb={3} variant="h2">
+              Police Departments with the Most Killings
+            </Typography>
+            <Box mt={3}>
+              <TopPoliceDepartments data={topPoliceDepartments} />
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <Typography mb={3} variant="h2">
+              Police Killings Over Time
+            </Typography>
+            <Box mt={3}>
+              <BrutalityOverTime data={shootingsOverTime} />
+            </Box>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Typography mb={3} variant="h2">
+              By the Numbers
+            </Typography>
+            <Box mt={3}>
+              <EnhancedTable />
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+      <Footer />
+    </>
+
   );
 }
 
