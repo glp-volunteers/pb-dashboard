@@ -8,14 +8,14 @@ function Resources() {
       <Head />
       <Container>
         <Box maxWidth={680} mx="auto">
-          <h2>Resources</h2>
+          <h1>Resources</h1>
           <p>
             Below are a list of resources we have made available to the public.
           </p>
 
           {/* Segment talking about our data */}
 
-            <h3>Our Data</h3>
+            <h2>Our Data</h2>
               To get a copy of our latest dataset, follow{" "}
             <Link href="https://github.com/glp-volunteers/pb-dashboard/blob/master/db/police_killings.csv">
               <b> this link.</b>
@@ -26,7 +26,7 @@ function Resources() {
             </Link>
 
             {/* Segment talking about this as a open source project. */}
-            <h3>This Open Source Project</h3>
+            <h2>This Open Source Project</h2>
             <p>
               This Police Brutality application is a part of an open-source project. Anyone can contribute. <b>We have 2 repositories. </b> 
               To see our sourcecode and our Github repositories see the links below. {" "}
@@ -47,7 +47,7 @@ function Resources() {
 
             {/* Segment talking about process for reporting app and/or data issues. */}
 
-            <h3>Reporting Data or Application Issues</h3>
+            <h2>Reporting Data or Application Issues</h2>
             <p>
               If you find bugs or any data issues , please file an issue by following {" "}
             <Link href="https://github.com/glp-volunteers/pb-dashboard/issues/new">
@@ -55,7 +55,7 @@ function Resources() {
             </Link>
             </p>
             {/* Segment talking about upcoming features for technical audiences. */}
-            <h3>Developers, Data Scientists, and Analytics Audiences</h3>
+            <h2>Developers, Data Scientists, and Analytics Audiences</h2>
             <p>
             At some point, we will release documentation for consuming our APIs, along with data science/analytical tools for the public to use. Stay tuned.
             </p>
