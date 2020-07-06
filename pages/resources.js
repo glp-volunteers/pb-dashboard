@@ -16,12 +16,10 @@ function Resources() {
           {/* Segment talking about our data */}
 
             <h3>Our Data</h3>
-            <p>
               To get a copy of our latest dataset, follow{" "}
             <Link href="https://github.com/glp-volunteers/pb-dashboard/blob/master/db/police_killings.csv">
               <b> this link.</b>
             </Link>
-            </p>
               To read about how we gather our data, please visit our{" "}
             <Link href="/methodology">
               <b> Methodology page.</b>
@@ -30,11 +28,21 @@ function Resources() {
             {/* Segment talking about this as a open source project. */}
             <h3>This Open Source Project</h3>
             <p>
-              This Police Brutality application is an open-source project. Anyone can contribute. To see our sourcecode and our Github repository , please follow {" "}
+              This Police Brutality application is a part of an open-source project. Anyone can contribute. <b>We have 2 repositories. </b> 
+              To see our sourcecode and our Github repositories see the links below. {" "}
+              </p>
+
+              <ul>
+                <li>
             <Link href="https://github.com/glp-volunteers/pb-dashboard/">
-              <b>this link.</b>
+              <b>Application repository</b>
+            </Link> </li>
+            <li>
+            <Link href="https://github.com/mjcronin/grassroots_law">
+              <b>Data science repository using Python and Streamlit</b>
             </Link>
-            </p>
+            </li>
+            </ul>
 
             {/* Segment talking about process for reporting app and/or data issues. */}
 
@@ -52,7 +60,6 @@ function Resources() {
             </p>
          
           
-        
         </Box>
       </Container>
     </div>
