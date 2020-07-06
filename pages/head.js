@@ -1,5 +1,5 @@
 import React from "react";
-import { Link as NextLink } from "next/link";
+  import { Link as NextLink } from "next/link";
 
 import { Box, Button, Container, Link, Typography } from "@material-ui/core";
 
@@ -73,6 +73,18 @@ function Head() {
           >
             <Box px={2} py={1}>
               Our Methodology
+            </Box>
+          </Link>
+          <Link
+            align="center"
+            color="inherit"
+            component={NextLink}
+            display="block"
+            href="/resources"
+            variant="body1"
+          >
+            <Box px={2} py={1}>
+              Resources
             </Box>
           </Link>
           <Button
