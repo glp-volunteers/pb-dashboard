@@ -33,15 +33,16 @@ function Resources() {
               </p>
 
               <ul>
-                <li>
-            <Link href="https://github.com/glp-volunteers/pb-dashboard/">
-              <b>Application repository</b>
-            </Link> </li>
+                
             <li>
             <Link href="https://github.com/mjcronin/grassroots_law">
               <b>Data science repository using Python and Streamlit</b>
             </Link>
             </li>
+            <li>
+            <Link href="https://github.com/glp-volunteers/pb-dashboard/">
+              <b>Application repository</b>
+            </Link> </li>
             </ul>
 
             {/* Segment talking about process for reporting app and/or data issues. */}
