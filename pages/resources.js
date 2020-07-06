@@ -1,6 +1,8 @@
 import React from "react";
 import Head from "pages/head";
 import { Box, Container, Link } from "@material-ui/core";
+import { Link as NextLink } from "next/link";
+
 
 function Resources() {
   return (
