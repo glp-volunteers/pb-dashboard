@@ -40,6 +40,8 @@ const BrutalityOverTime = ({ data }) => {
               padding: 40,
             },
           }}
+          domain={[0,250]}
+
         />
       </VictoryChart>
     </div>
