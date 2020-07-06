@@ -21,7 +21,7 @@ function Resources() {
               <b> this link.</b>
             </Link>
               To read about how we gather our data, please visit our{" "}
-            <Link href="/methodology">
+            <Link component={NextLink} href="/methodology">
               <b> Methodology page.</b>
             </Link>
 
