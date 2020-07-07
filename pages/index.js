@@ -6,6 +6,7 @@ import {
   Chip,
   Container,
   Grid,
+  Hidden,
   Switch,
   Typography,
 } from "@material-ui/core";
@@ -87,6 +88,36 @@ export const getServerSideProps = async () => {
   return nationalData;
 };
 
+function PerCapitaSwitch({
+  className,
+  selectedState,
+  setSelectedState,
+  isPerCapita,
+  setIsPerCapita,
+}) {
+  return (
+    <Box className={className} alignItems="center" display="inline-flex" ml={3}>
+      {selectedState ? (
+        <Chip
+          color="primary"
+          label={selectedState}
+          onDelete={() => setSelectedState(null)}
+        />
+      ) : (
+        <Box alignItems="center" component="label" display="inline-flex" pr={2}>
+          <Switch
+            onChange={(val) => {
+              setIsPerCapita(val.target.checked);
+            }}
+            checked={isPerCapita || false}
+          />
+          <Typography component="span">Per Capita</Typography>
+        </Box>
+      )}
+    </Box>
+  );
+}
+
 function Dashboard({
   shootingsByState,
   shootingsByGeo,
@@ -114,30 +145,12 @@ function Dashboard({
               <Typography mb={3} variant="h2">
                 Police Killings by State
               </Typography>
-              <Box alignItems="center" display="inline-flex" ml={3}>
-                {selectedState ? (
-                  <Chip
-                    color="primary"
-                    label={selectedState}
-                    onDelete={() => setSelectedState(null)}
-                    // style={{ verticalAlign: "bottom", fontSize: 18 }}
-                  />
-                ) : (
-                  <Box
-                    alignItems="center"
-                    component="label"
-                    display="inline-flex"
-                    pr={2}
-                  >
-                    <Switch
-                      onChange={(val) => {
-                        setIsPerCapita(val.target.checked);
-                      }}
-                    />
-                    <Typography component="span">Per Capita</Typography>
-                  </Box>
-                )}
-              </Box>
+              <PerCapitaSwitch
+                selectedState={selectedState}
+                setSelectedState={setSelectedState}
+                isPerCapita={isPerCapita}
+                setIsPerCapita={setIsPerCapita}
+              />
             </Box>
             <BrutalityMap
               data={shootingsByState}
@@ -149,6 +162,14 @@ function Dashboard({
             <Typography mb={3} variant="h2">
               Police Killings by {selectedState ? "County" : "State"}
             </Typography>
+            <Hidden mdUp>
+              <PerCapitaSwitch
+                selectedState={selectedState}
+                setSelectedState={setSelectedState}
+                isPerCapita={isPerCapita}
+                setIsPerCapita={setIsPerCapita}
+              />
+            </Hidden>
             <Box mt={3} height="500px" overflow="auto">
               <BrutalityByState
                 data={shootingsByGeo}
