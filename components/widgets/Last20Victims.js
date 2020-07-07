@@ -5,7 +5,7 @@ import { Box, Paper, Link, List, ListItem } from "@material-ui/core";
 const Last20Victims = ({ data }) => {
   return (
     <Paper>
-      <Box height="500px" overflow="auto">
+      <Box>
         <List>
           {data.map((item) => {
             const humanDate = new Date(item.date).toDateString();

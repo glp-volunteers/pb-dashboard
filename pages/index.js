@@ -147,22 +147,22 @@ function Dashboard({
           </Grid>
           <Grid item xs={12} md={4}>
             <Typography mb={3} variant="h2">
-              Recent Police Killings
+              Police Killings by {selectedState ? "County" : "State"}
             </Typography>
-            <Box mt={3}>
-              <Last20Victims data={last20Items} />
+            <Box mt={3} height="500px" overflow="auto">
+              <BrutalityByState
+                data={shootingsByGeo}
+                x={selectedState ? "county" : "state"}
+              />
             </Box>
           </Grid>
 
           <Grid item xs={12} md={8}>
             <Typography mb={3} variant="h2">
-              Police Killings by {selectedState ? "County" : "State"}
+              Recent Police Killings
             </Typography>
             <Box mt={3}>
-              <BrutalityByState
-                data={shootingsByGeo}
-                x={selectedState ? "county" : "state"}
-              />
+              <Last20Victims data={last20Items} />
             </Box>
           </Grid>
           <Grid item xs={12} md={4}>
@@ -194,7 +194,6 @@ function Dashboard({
       </Container>
       <Footer />
     </>
-
   );
 }
 
