@@ -18,10 +18,11 @@ const BrutalityByState = ({ data, x = "state", isPerCapita }) => {
     <div ref={ref} style={{ height: 1000 }}>
       <VictoryChart
         domainPadding={{ x: barWidth / 2 + 5 }}
-        padding={{ left: 100, top: 0, right: 10, bottom: 50 }}
+        padding={{ left: 100, top: 50, right: 10, bottom: 50 }}
         width={width}
         height={1000}
       >
+        <VictoryAxis dependentAxis orientation={"top"} />
         <VictoryAxis style={{ tickLabels: { angle: -30 } }} />
         <VictoryAxis
           dependentAxis

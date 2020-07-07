@@ -160,8 +160,6 @@ const EnhancedTableToolbar = (props) => {
           State
         </Typography>
       )}
-
-    
     </Toolbar>
   );
 };
@@ -193,7 +191,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EnhancedTable() {
   const classes = useStyles();
-  const [order, setOrder] = React.useState("asc");
+  const [order, setOrder] = React.useState("desc");
   const [orderBy, setOrderBy] = React.useState("killing");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
