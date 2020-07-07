@@ -188,7 +188,7 @@ function Dashboard({
           </Grid>
           <Grid item xs={12} md={4}>
             <Typography mb={3} variant="h2">
-              Deadliest Police Forces by State
+              Deadliest Police Forces
             </Typography>
             <Box mt={3}>
               <TopPoliceDepartments data={topPoliceDepartments} />
