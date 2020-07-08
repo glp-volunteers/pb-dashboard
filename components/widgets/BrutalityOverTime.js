@@ -14,10 +14,9 @@ function transformData(data) {
 const BrutalityOverTime = ({ data }) => {
   const [ref, { width }] = useMeasure();
   const transformedData = useMemo(() => transformData(data), [data]);
-  const lastDate = new Date(
-    2020,
-    transformedData[transformedData.length - 1].x.getMonth()
-  );
+  const startDate = new Date("2020-01");
+  // Use last month to avoid having an incomplete month of data
+  const endDate = new Date(2020, new Date().getMonth() - 1);
 
   return (
     <div ref={ref}>
@@ -27,7 +26,7 @@ const BrutalityOverTime = ({ data }) => {
             data: { stroke: COLORS.accent },
           }}
           data={transformedData}
-          domain={{ x: [new Date("2020-01"), lastDate] }}
+          domain={{ x: [startDate, endDate] }}
         />
         <VictoryAxis
           label="Span of Time"
@@ -37,7 +36,7 @@ const BrutalityOverTime = ({ data }) => {
               padding: 30,
             },
           }}
-          domain={[new Date("2020-01"), lastDate]}
+          domain={[startDate, endDate]}
         />
         <VictoryAxis
           dependentAxis
