@@ -10,6 +10,13 @@ export const count_all_records = function (req, res) {
   });
 };
 
+export const count_all_unarmed_killings = function (req, res) {
+  Count.countAllUnarmedKillings(function (err, count) {
+    if (err) return res.send(err);
+    res.send(count);
+  });
+};
+
 export const count_all_shootings = function (req, res) {
   Count.countAllShootings(function (err, count) {
     if (err) return res.send(err);
