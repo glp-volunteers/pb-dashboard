@@ -4,11 +4,9 @@ import { useMeasure } from "react-use";
 import { COLORS } from "styles/constants";
 
 function transformData(data) {
-  return data
-    .map(function (d) {
-      return { x: new Date(d.month), y: d.count };
-    })
-    .sort((a, b) => a.x.getTime() - b.x.getTime());
+  return data.map(function (d) {
+    return { x: new Date(d.month), y: d.count };
+  });
 }
 
 const BrutalityOverTime = ({ data }) => {
