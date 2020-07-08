@@ -59,9 +59,22 @@ function Resources() {
             {/* Segment talking about upcoming features for technical audiences. */}
             <h2>Developers, Data Scientists, and Analytics Audiences</h2>
             <p>
-            At some point, we will release documentation for consuming our APIs, along with data science/analytical tools for the public to use. Stay tuned.
+            Below are some of our technical resources to our data science explorations, along with our API documentation.
             </p>
-         
+
+            <ul>
+
+            <li>
+            <Link href="https://jfmarx.gitlab.io/fun/police-killings-viz.html/">
+              <b>Data + Visualizations Exploration for Police Killings Dataset</b>
+            </Link> </li>
+            
+            <li>
+            <Link href="http://policekillings.grassrootslaw.org/api-docs">
+              <b>Our APIs</b>
+            </Link> </li>
+
+            </ul>
           
         </Box>
       </Container>
