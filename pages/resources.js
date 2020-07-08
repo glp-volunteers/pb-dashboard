@@ -59,7 +59,7 @@ function Resources() {
             {/* Segment talking about upcoming features for technical audiences. */}
             <h2>Developers, Data Scientists, and Analytics Audiences</h2>
             <p>
-            At some point, we will release documentation for consuming our APIs. For now, check out the data exploration our data scientists have embarked on..
+            Below are some of our technical resources to our data science explorations, along with our API documentation.
             </p>
 
             <ul>
