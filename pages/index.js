@@ -39,6 +39,8 @@ const getNationalData = async () => {
   );
   const shootingsOverTime = await universalAPIFetch("count/shootings/overtime");
   const last20Items = await universalAPIFetch("shootings/last20");
+  const unarmedItems = await universalAPIFetch("count/unarmedKillings");
+  
   const topPoliceDepartments = await universalAPIFetch("count/shootings/pd");
   const populationData = await populationDataRaw.json();
   const filteredShootingsByState = shootingsByState.filter((state) =>
@@ -59,6 +61,7 @@ const getNationalData = async () => {
       shootingsOverTime,
       topPoliceDepartments,
       last20Items,
+      unarmedItems,
     },
   };
 };
@@ -128,6 +131,7 @@ function Dashboard({
   setSelectedState,
   setIsPerCapita,
   isPerCapita,
+  unarmedItems,
 }) {
   return (
     <>
@@ -136,7 +140,7 @@ function Dashboard({
         <Grid container spacing={4}>
           <Grid item xs={12}>
             <Box pt={4} pb={2}>
-              <Typography variant="h1">Police Killings in 2020</Typography>
+              <Typography variant="h1">Police Killings in 2020: {unarmedItems[0].total} victims ({unarmedItems[0].weaponStatus} unarmed)</Typography>
             </Box>
           </Grid>
 
@@ -188,7 +192,7 @@ function Dashboard({
           </Grid>
           <Grid item xs={12} md={4}>
             <Typography mb={3} variant="h2">
-              Deadliest Police Forces
+              Deadliest Police Forces by State
             </Typography>
             <Box mt={3}>
               <TopPoliceDepartments data={topPoliceDepartments} />
@@ -224,6 +228,7 @@ function HomePage({
   shootingsOverTime,
   topPoliceDepartments,
   last20Items,
+  unarmedItems,
 }) {
   const [isPerCapita, setIsPerCapita] = useState(false);
   const [selectedState, setSelectedState] = useState(null);
@@ -233,6 +238,7 @@ function HomePage({
     topPoliceDepartments: [],
     last20Items: [],
   });
+  const [isUnarmedItems] = useState(unarmedItems);
 
   useEffect(() => {
     if (selectedState) {
@@ -264,6 +270,7 @@ function HomePage({
       }}
       setIsPerCapita={setIsPerCapita}
       isPerCapita={isPerCapita}
+      unarmedItems={isUnarmedItems}
     />
   );
 }
