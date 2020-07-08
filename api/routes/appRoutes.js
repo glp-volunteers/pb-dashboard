@@ -1,133 +1,228 @@
-import * as controller from "api/controllers/appController";
-import { match } from "path-to-regexp";
+import getDb from "./db";
 
-const routes = {
-  "/count": {
-    GET: controller.count_all_records,
-  },
-  "/count/shootings": {
-    GET: controller.count_all_shootings,
-  },
-  "/count/brutality": {
-    GET: controller.count_all_brutality,
-  },
-  "/count/state/name": {
-    GET: controller.count_all_records_by_state,
-  },
-  "/count/shootings/state/name": {
-    GET: controller.count_all_shootings_by_state,
-  },
-  "/count/brutality/state/name": {
-    GET: controller.count_all_brutality_by_state,
-  },
-  "/count/state/abbv": {
-    GET: controller.count_all_records_by_stateabbv,
-  },
-  "/count/shootings/state/abbv": {
-    GET: controller.count_all_shootings_by_stateabbv,
-  },
-  "/count/brutality/state/abbv": {
-    GET: controller.count_all_brutality_by_stateabbv,
-  },
-  "/count/statecounty": {
-    GET: controller.count_all_records_by_state_county,
-  },
-  "/count/shootings/statecounty/:state": {
-    GET: controller.count_all_shootings_by_state_county,
-  },
-  "/count/shootings/statecounty": {
-    GET: controller.count_all_shootings_by_state_county,
-  },
-  "/count/brutality/statecounty": {
-    GET: controller.count_all_brutality_by_state_county,
-  },
-  "/count/shootings/overtime": {
-    GET: controller.count_all_shootings_over_time,
-  },
-  "/count/shootings/overtime/:state": {
-    GET: controller.count_all_shootings_over_time,
-  },
-  "/count/shootings/pd": {
-    GET: controller.count_top_police_departments,
-  },
-  "/count/shootings/pd/:state": {
-    GET: controller.count_top_police_departments,
-  },
-  "/shootings": {
-    GET: controller.list_all_shootings,
-  },
-  "/shootings/state": {
-    GET: controller.list_all_shootings_by_state,
-  },
-  "/shootings/state/:stateCode": {
-    GET: controller.list_all_shootings_for_state,
-  },
-  "/shootings/last20": {
-    GET: controller.list_last_shootings,
-  },
-  "/shootings/last20/:state": {
-    GET: controller.list_last_shootings,
-  },
-  "/shootings/:shootingId1-:shootingId2": {
-    GET: controller.read_span_shootings,
-  },
-  "/shootings/:shootingId": {
-    GET: controller.read_a_shooting,
-  },
-  "/brutality": {
-    GET: controller.list_all_brutality,
-  },
-  "/brutality/state": {
-    GET: controller.list_all_brutality_by_state,
-  },
-  "/brutality/state/:stateCode": {
-    GET: controller.list_all_brutality_for_state,
-  },
-  "/brutality/last20": {
-    GET: controller.list_last_brutality,
-  },
-  "/brutality/:brutalityId1-:brutalityId2": {
-    GET: controller.read_span_brutality,
-  },
-  "/brutality/:brutalityId": {
-    GET: controller.read_a_brutality,
-  },
+//Count object constructor
+var Count = function (count) {
+  this.count = count.count;
+  this.status = count.status;
+  this.created_at = new Date();
 };
 
-const compiledRoutes = {};
-Object.keys(routes).forEach((route) => {
-  compiledRoutes[route] = { ...routes[route], match: match(route) };
-});
-
-export default function handle(req, res) {
-  // Routes
-  const {
-    query: { route },
-    method,
-  } = req;
-  const routeJoined = `/${route.join("/")}`;
-  const matchingRoute = Object.values(compiledRoutes).find((r) =>
-    r.match(routeJoined)
+Count.countAllRecords = async function (result) {
+  const sql = await getDb();
+  sql.query(
+    "select (Select count(*) as total from shootings) + (Select count(*) as total from brutality) as total",
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
   );
-  if (matchingRoute && matchingRoute[method]) {
-    const handler = matchingRoute[method];
-    const { params } = matchingRoute.match(routeJoined);
-    handler({ ...req, params }, res);
-    return;
-  }
-  res.statusCode = 404;
-  res.end();
-}
+};
 
-export async function getApiData(route) {
-  return new Promise(function (res, rej) {
-    const request = { query: { route: route.split("/") }, method: "GET" };
-    const response = {
-      send: function (data) {
-        res(JSON.parse(JSON.stringify(data)));
-      },
-      end: res,
-    };
-    handle(request, response);
+Count.countAllUnarmedKillings = async function (result) {
+  const sql = await getDb();
+  sql.query(
+    "Select (Select count(*) as total from shootings) AS total, (SELECT count(armed_unarmed) FROM shootings WHERE armed_unarmed = 'Unarmed') AS weaponStatus",
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+Count.countAllShootings = async function (result) {
+  const sql = await getDb();
+  sql.query("Select count(*) as total from shootings", function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
+    }
   });
-}
+};
+
+Count.countAllBrutality = async function (result) {
+  const sql = await getDb();
+  sql.query("Select count(*) as total from brutality", function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+Count.countAllRecordsByState = async function (result) {
+  const sql = await getDb();
+  sql.query(
+    "(Select state, count(*) as total from milehigh_grassroots_law.shootings group by state order by state) UNION (Select state, count(*) as total from milehigh_grassroots_law.brutality group by state order by state) ",
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+Count.countAllShootingsByState = async function (result) {
+  const sql = await getDb();
+  sql.query(
+    "Select state, count(*) as total from shootings group by state order by state",
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+Count.countAllBrutalityByState = async function (result) {
+  const sql = await getDb();
+  sql.query(
+    "Select state, count(*) as total from brutality group by state order by state",
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+Count.countAllRecordsByStateAbbv = async function (result) {
+  const sql = await getDb();
+  sql.query(
+    "(Select state_code, count(*) as total from milehigh_grassroots_law.shootings group by state_code order by state_code) UNION (Select state_code, count(*) as total from milehigh_grassroots_law.brutality group by state_code order by state_code) ",
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+Count.countAllShootingsByStateAbbv = async function (result) {
+  const sql = await getDb();
+  sql.query(
+    "Select state_code, count(*) as total from shootings group by state_code order by state_code",
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+Count.countAllBrutalityByStateAbbv = async function (result) {
+  const sql = await getDb();
+  sql.query(
+    "Select state_code, count(*) as total from brutality group by state_code order by state_code",
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+Count.countAllRecordsByStateCounty = async function (result) {
+  const sql = await getDb();
+  sql.query(
+    "(Select state, county, count(*) as total from milehigh_grassroots_law.shootings group by state, county order by state, county) UNION (Select state, county, count(*) as total from milehigh_grassroots_law.brutality group by state, county order by state, county) ",
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+Count.countAllShootingsByStateCounty = async function (state, result) {
+  const sql = await getDb();
+  const where = state ? "where state = ?" : "";
+  let query = `Select state, county, count(*) as total from shootings ${where} group by state, county order by state, county`;
+  sql.query(query, [state], function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+Count.countAllBrutalityByStateCounty = async function (result) {
+  const sql = await getDb();
+  sql.query(
+    "Select state, county, count(*) as total from brutality group by state, county order by state, county",
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
+
+//BrutalityOverTime.js query
+
+Count.countAllShootingsOverTime = async function (state, result) {
+  const sql = await getDb();
+  const where = state ? "and state = ?" : "";
+  const query = `Select count(date) as 'count', state, date_format(date, '%Y-%m') as 'month' from shootings where date_format(date, '%Y-%m') != '0000-00' ${where} group by date_format(date, '%Y-%m') having count(*) >= 1 order by date asc`;
+  sql.query(query, [state], function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+Count.countTopPoliceDepartments = async function (state, result) {
+  const sql = await getDb();
+  const where = state ? "where state = ?" : "";
+  const query = `Select police_department, state, count(*) as count from shootings ${where} group by police_department order by count desc limit 20`;
+  sql.query(query, [state], function (err, res) {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+    } else {
+      result(null, res);
+    }
+  });
+};
+
+export default Count;
