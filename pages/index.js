@@ -40,7 +40,7 @@ const getNationalData = async () => {
   const shootingsOverTime = await universalAPIFetch("count/shootings/overtime");
   const last20Items = await universalAPIFetch("shootings/last20");
   const unarmedItems = await universalAPIFetch("count/unarmedKillings");
-  
+
   const topPoliceDepartments = await universalAPIFetch("count/shootings/pd");
   const populationData = await populationDataRaw.json();
   const filteredShootingsByState = shootingsByState.filter((state) =>
@@ -140,7 +140,10 @@ function Dashboard({
         <Grid container spacing={4}>
           <Grid item xs={12}>
             <Box pt={4} pb={2}>
-              <Typography variant="h1">Police Killings in 2020: {unarmedItems[0].total} victims ({unarmedItems[0].weaponStatus} unarmed)</Typography>
+              <Typography variant="h1">
+                Police Killings in 2020: {unarmedItems[0].total} victims (
+                {unarmedItems[0].weaponStatus} unarmed)
+              </Typography>
             </Box>
           </Grid>
 
@@ -156,11 +159,14 @@ function Dashboard({
                 setIsPerCapita={setIsPerCapita}
               />
             </Box>
-            <BrutalityMap
-              data={shootingsByState}
-              selectState={setSelectedState}
-              selectedState={selectedState}
-            />
+            <Box pt={2}>
+              <BrutalityMap
+                data={shootingsByState}
+                selectState={setSelectedState}
+                selectedState={selectedState}
+                isPerCapita={isPerCapita}
+              />
+            </Box>
           </Grid>
           <Grid item xs={12} md={4}>
             <Typography mb={3} variant="h2">
@@ -174,10 +180,11 @@ function Dashboard({
                 setIsPerCapita={setIsPerCapita}
               />
             </Hidden>
-            <Box mt={3} height="500px" overflow="auto">
+            <Box mt={3} height="700px">
               <BrutalityByState
                 data={shootingsByGeo}
                 x={selectedState ? "county" : "state"}
+                isPerCapita={isPerCapita}
               />
             </Box>
           </Grid>

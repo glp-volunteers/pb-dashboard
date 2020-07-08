@@ -13,20 +13,20 @@ const BrutalityByState = ({ data, x = "state", isPerCapita }) => {
       }),
     [data]
   );
-  const barWidth = Math.min(50, (1000 - 12 * data.length) / data.length);
+  const barWidth = Math.min(50, (700 - 10 * data.length) / data.length);
   return (
-    <div ref={ref} style={{ height: 1000 }}>
+    <div ref={ref} style={{ height: 700 }}>
       <VictoryChart
         domainPadding={{ x: barWidth / 2 + 5 }}
-        padding={{ left: 100, top: 50, right: 10, bottom: 50 }}
+        padding={{ left: 100, top: 30, right: 10, bottom: 50 }}
         width={width}
-        height={1000}
+        height={700}
       >
         <VictoryAxis dependentAxis orientation={"top"} />
         <VictoryAxis style={{ tickLabels: { angle: -30 } }} />
         <VictoryAxis
           dependentAxis
-          label={isPerCapita ? "Killings Per 1 million Residents" : "Killings"}
+          label={isPerCapita ? "Killings per 1 million residents" : "Killings"}
         />
         <VictoryBar
           barWidth={barWidth}
