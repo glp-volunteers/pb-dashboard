@@ -8,7 +8,6 @@ import {
 } from "react-simple-maps";
 import { scaleQuantile } from "d3-scale";
 import ReactTooltip from "react-tooltip";
-import { VictoryCursorContainer } from "victory";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 let mapProjection;
