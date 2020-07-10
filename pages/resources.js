@@ -65,7 +65,7 @@ function Resources() {
             <ul>
 
             <li>
-            <Link href="https://jfmarx.gitlab.io/fun/police-killings-viz.html/">
+            <Link href="https://jfmarx.gitlab.io/volunteer/police-killings-viz.html">
               <b>Data + Visualizations Exploration for Police Killings Dataset</b>
             </Link> </li>
             
