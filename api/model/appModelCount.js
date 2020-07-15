@@ -39,7 +39,7 @@ Count.countAllUnarmedKillings = async function (result) {
 Count.countAllArmedKillings = async function (result) {
   const sql = await getDb();
   sql.query(
-    "Select (Select count(*) as total from shootings) AS Total, (SELECT count(armed_unarmed) FROM shootings WHERE armed_unarmed = 'Armed') AS weaponStatus",
+    "Select (Select count(*) as total from shootings) AS Total, (SELECT count(armed_unarmed) FROM shootings WHERE armed_unarmed NOT IN ('Unarmed')) AS Armed",
     function (err, res) {
       if (err) {
         console.log("error: ", err);
