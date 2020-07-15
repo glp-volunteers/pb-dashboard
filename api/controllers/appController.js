@@ -16,6 +16,12 @@ export const count_all_unarmed_killings = function (req, res) {
     res.send(count);
   });
 };
+export const count_all_armed_killings = function (req, res) {
+  Count.countAllArmedKillings(function (err, count) {
+    if (err) return res.send(err);
+    res.send(count);
+  });
+};
 
 export const count_all_shootings = function (req, res) {
   Count.countAllShootings(function (err, count) {

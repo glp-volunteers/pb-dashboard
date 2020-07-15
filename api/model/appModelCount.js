@@ -36,6 +36,20 @@ Count.countAllUnarmedKillings = async function (result) {
     }
   );
 };
+Count.countAllArmedKillings = async function (result) {
+  const sql = await getDb();
+  sql.query(
+    "Select (Select count(*) as total from shootings) AS Total, (SELECT count(armed_unarmed) FROM shootings WHERE armed_unarmed = 'Armed') AS weaponStatus",
+    function (err, res) {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+      } else {
+        result(null, res);
+      }
+    }
+  );
+};
 
 Count.countAllShootings = async function (result) {
   const sql = await getDb();
