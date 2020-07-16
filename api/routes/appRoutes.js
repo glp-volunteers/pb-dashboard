@@ -11,6 +11,9 @@ const routes = {
   "/count/unarmedKillings": {
     GET: controller.count_all_unarmed_killings,
   },
+  "/count/armedKillings": {
+    GET: controller.count_all_armed_killings,
+  },
   "/count/brutality": {
     GET: controller.count_all_brutality,
   },
