@@ -41,6 +41,8 @@ const getNationalData = async () => {
   const last20Items = await universalAPIFetch("shootings/last20");
   const unarmedItems = await universalAPIFetch("count/unarmedKillings");
   const armedItems = await universalAPIFetch("count/armedKillings");
+  const shootings = await universalAPIFetch("shootings");
+
   const topPoliceDepartments = await universalAPIFetch("count/shootings/pd");
   const populationData = await populationDataRaw.json();
   const filteredShootingsByState = shootingsByState.filter((state) =>
@@ -63,6 +65,7 @@ const getNationalData = async () => {
       last20Items,
       unarmedItems,
       armedItems
+      shootings,
     },
   };
 };
@@ -134,6 +137,7 @@ function Dashboard({
   isPerCapita,
   unarmedItems,
   armedItems,
+  shootings,
 }) {
   return (
     <>
@@ -221,7 +225,7 @@ function Dashboard({
               By the Numbers
             </Typography>
             <Box mt={3}>
-              <EnhancedTable />
+              <EnhancedTable data={shootings} />
             </Box>
           </Grid>
         </Grid>
@@ -239,6 +243,7 @@ function HomePage({
   last20Items,
   unarmedItems,
   armedItems,
+  shootings,
 }) {
   const [isPerCapita, setIsPerCapita] = useState(false);
   const [selectedState, setSelectedState] = useState(null);
@@ -285,6 +290,7 @@ function HomePage({
       unarmedItems={isUnarmedItems}
       armedItems={isArmedItems}
 
+      shootings={shootings}
     />
   );
 }
