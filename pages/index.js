@@ -64,7 +64,7 @@ const getNationalData = async () => {
       topPoliceDepartments,
       last20Items,
       unarmedItems,
-      armedItems
+      armedItems,
       shootings,
     },
   };
@@ -256,7 +256,6 @@ function HomePage({
   const [isUnarmedItems] = useState(unarmedItems);
   const [isArmedItems] = useState(armedItems);
 
-
   useEffect(() => {
     if (selectedState) {
       getStateData(selectedState).then(setStateData);
@@ -289,7 +288,6 @@ function HomePage({
       isPerCapita={isPerCapita}
       unarmedItems={isUnarmedItems}
       armedItems={isArmedItems}
-
       shootings={shootings}
     />
   );
