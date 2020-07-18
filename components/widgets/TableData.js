@@ -189,40 +189,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EnhancedTable() {
+const filterShootingData = (data) => {
+  let map = {};
+  let newRows = [];
+
+  for (let i = 0; i < data.length; i++) {
+    let state = data[i].state;
+    map[state] = (map[state] || 0) + 1;
+  }
+
+  for (let key in map) {
+    newRows.push(createData(`${key}`, map[key]));
+  }
+
+  return newRows;
+};
+
+const EnhancedTable = ({ data }) => {
   const classes = useStyles();
   const [order, setOrder] = React.useState("desc");
   const [orderBy, setOrderBy] = React.useState("killing");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [rows, setRows] = React.useState([]);
-
-  React.useEffect(() => {
-    async function fetchAPI() {
-      const requestURL = "/api/shootings";
-      const response = await fetch(requestURL);
-      const responseJSON = await response.json();
-      const rows = filterStateData(responseJSON);
-      setRows(rows);
-    }
-    fetchAPI();
-  }, []);
-
-  const filterStateData = (arrays) => {
-    let map = {};
-    let newRows = [];
-
-    for (let i = 0; i < arrays.length; i++) {
-      let state = arrays[i].state;
-      map[state] = (map[state] || 0) + 1;
-    }
-
-    for (let key in map) {
-      newRows.push(createData(`${key}`, map[key]));
-    }
-    return newRows;
-  };
+  const rows = filterShootingData(data);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -351,4 +341,5 @@ export default function EnhancedTable() {
       </Paper>
     </div>
   );
-}
+};
+export default EnhancedTable;
