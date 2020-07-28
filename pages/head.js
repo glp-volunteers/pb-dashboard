@@ -87,6 +87,19 @@ function Head() {
               Resources
             </Box>
           </Link>
+
+          <Link
+            align="center"
+            color="inherit"
+            component={NextLink}
+            display="block"
+            href="https://www.grassrootslaw.org/volunteer"
+            variant="body1"
+          >
+            <Box px={2} py={1}>
+              Take Action
+            </Box>
+          </Link>
           <Button
             ml={2}
             variant="outlinedSecondary"
